@@ -84,7 +84,7 @@ _make() {
         LDFLAGS="${LDFLAGS}" \
         CC="${CC}" \
         INSTALL="${INSTALL}" \
-        make ${@:-}
+        ${MAKE} ${@:-}
 }
 
 _patch() {

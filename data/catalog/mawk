@@ -1,0 +1,32 @@
+#!/bin/sh
+
+NAME=${NAME:-'mawk'}
+VERSION=${VERSION:-'1.9.9.6'}
+ORIGIN_PATH=${ORIGIN_PATH:-'ploxiln/mawk-2'}
+
+. /package/unpackage/include/common
+
+_configure() {
+    cd ${SOURCE} || exit 111
+
+    if test -x configure
+    then
+        ./configure \
+            --prefix="${PREFIX}" \
+            --bindir="${BINDIR}" \
+            --libdir="${LIBDIR}" \
+            --includedir="${INCLUDEDIR}" \
+            --mandir="${MANDIR}" \
+            CFLAGS="${CFLAGS}" \
+            LDFLAGS="${LDFLAGS}"
+        awk "\$1 == \"MANDIR\" { \$3 = \"${MANDIR}\" } \$1 == \"BINDIR\" { \$3 = \"${BINDIR}\" } { print }" Makefile > Makefile.fixed
+        mv Makefile.fixed Makefile
+    fi
+}
+
+_install() {
+    mkdir -p ${BINDIR} ${MANDIR}
+    _make install
+}
+
+_main ${@:-}

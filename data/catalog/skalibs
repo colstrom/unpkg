@@ -1,0 +1,10 @@
+#!/bin/sh
+
+NAME=${NAME:-'skalibs'}
+VERSION=${VERSION:-'2.4.0.2'}
+TAG=${TAG:-v${VERSION}}
+ORIGIN_PATH=${ORIGIN_PATH='skarnet/skalibs'}
+
+. /package/unpackage/include/common
+
+_main ${@:-}

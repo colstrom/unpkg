@@ -20,13 +20,17 @@ COMMAND_ROOT=${ROOT}/${COMMAND:-'command'}
 PACKAGE_DIR=${PACKAGE_ROOT}/${NAME}--${VERSION}
 WORKING=${SOURCE_ROOT}/${ORIGIN_HOST}/${ORIGIN_PATH}
 
-
 PREFIX=${PREFIX:-${PACKAGE_DIR}}
 BINDIR=${BINDIR:-${PREFIX}/command}
 LIBDIR=${LIBDIR:-${PREFIX}/library}
 INCLUDEDIR=${INCLUDEDIR:-${PREFIX}/include}
 MANDIR=${MANDIR:-${PREFIX}/manual}
 DESTDIR=${DESTDIR:-${PACKAGE_DIR}}
+
+if test -d /opt/gcc
+then
+    export PATH=${PATH}:/opt/gcc/*/bin
+fi
 
 CC=$(command -v gcc || command -v cc)
 MAKE=$(command -v gmake || command -v make)

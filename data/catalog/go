@@ -1,8 +1,5 @@
 #!/bin/sh
 
-set -o nounset
-test ${DEBUGGING:-'false'} = false || set -o xtrace
-
 NAME=${NAME:-'go'}
 VERSION=${VERSION:-'1.8'}
 TAG=${TAG:-go${VERSION}}

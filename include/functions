@@ -163,16 +163,17 @@ unpackage 0.0.0.develop
 usage: unpackage ${NAME} [command]
 
 Commands:
-  B|bootstrap  | bootstraps ${NAME} if required (may be a no-op)
-  I|import     | imports ${NAME} to the system
-  A|activate   | activates ${VERSION} as providing ${NAME}
-  b|build      | builds ${NAME}
-  c|clean      | discards all modifications and untracked files for ${NAME}
-  i|install    | installs ${NAME} to ${PACKAGE}
-  d|deinstall  | deinstalls ${NAME}
-  r|reinstall  | reinstalls ${NAME} to ${PACKAGE}
-  p|patch      | applies any needed patches to ${NAME}
-  s|sync       | fetches the latest upstream code for ${NAME} (unless OFFLINE)
+  A|activate      | activates ${VERSION} as providing ${NAME}
+  B|bootstrap     | bootstraps ${NAME} if required (may be a no-op)
+  I|import        | imports ${NAME} to the system
+  b|build         | builds ${NAME}
+  c|clean         | discards all modifications and untracked files for ${NAME}
+  d|deinstall     | deinstalls ${NAME}
+  i|install       | installs ${NAME} to ${PACKAGE}
+  p|patch         | applies any needed patches to ${NAME}
+  r|reinstall     | reinstalls ${NAME} to ${PACKAGE}
+  s|sync          | fetches the latest upstream code for ${NAME} (unless OFFLINE)
+  X|experimental  | probably breaks things
 
 If no command is given, the following commands will be run:
   sync && bootstrap && build && reinstall && enable
@@ -191,6 +192,7 @@ _main() {
         r|reinstall) _reinstall;;
         p|patch) _patch;;
         a|activate) _activate;;
+        X|experimental) shift && eval ${@:-};;
         A|all) _all;;
         *)
             _help >&2

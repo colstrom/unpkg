@@ -19,3 +19,5 @@ install() {
     deinstall
     tar cf - xxhsum xxh32sum xxh64sum | tar xf - -C ${PACKAGE_DIR}
 }
+
+entrypoint ${@:-}

@@ -169,6 +169,8 @@ Commands:
   b|build      | builds ${NAME}
   c|clean      | discards all modifications and untracked files for ${NAME}
   i|install    | installs ${NAME} to ${PACKAGE}
+  d|deinstall  | deinstalls ${NAME}
+  r|reinstall  | reinstalls ${NAME} to ${PACKAGE}
   p|patch      | applies any needed patches to ${NAME}
   s|sync       | fetches the latest upstream code for ${NAME} (unless OFFLINE)
 
@@ -184,7 +186,9 @@ _main() {
         s|sync) _sync;;
         B|bootstrap) _bootstrap;;
         b|build) _build;;
+        d|deinstall) _deinstall;;
         i|install) _install;;
+        r|reinstall) _reinstall;;
         p|patch) _patch;;
         a|activate) _activate;;
         A|all) _all;;

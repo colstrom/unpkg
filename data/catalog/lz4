@@ -1,0 +1,33 @@
+#!/bin/sh
+
+set -o nounset
+test ${DEBUGGING:-'false'} = false || set -o xtrace
+
+NAME=${NAME:-'lz4'}
+VERSION=${VERSION:-'1.7.5'}
+TAG=${TAG:-v${VERSION}}
+ORIGIN_PATH=${ORIGIN_PATH='lz4/lz4'}
+
+. /package/unpackage/include/common
+
+build() {
+    clean
+    test -n "${MAKE}" || exit 111
+
+    set -o errexit
+    with_build_environment ${MAKE} -C lib
+    with_build_environment ${MAKE} -C programs
+    set +o errexit
+}
+
+install() {
+    deinstall
+    test -n "${MAKE}" || exit 111
+
+    set -o errexit
+    with_build_environment ${MAKE} -C lib install
+    with_build_environment ${MAKE} -C programs install
+    set +o errexit
+}
+
+entrypoint ${@:-}

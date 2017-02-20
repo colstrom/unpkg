@@ -84,8 +84,18 @@ with_build_environment() {
         ${@:-'false'}
 }
 
+apply_patches() {
+    PATCH=/package/unpackage/data/patches/${NAME}.$(uname -s)
+
+    if test -f ${PATCH}
+    then
+        git apply ${PATCH}
+    fi
+}
+
 build() {
     clean
+    apply_patches
     test -n "${MAKE}" || exit 111
 
     with_build_environment ${MAKE}

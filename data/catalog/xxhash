@@ -7,12 +7,11 @@ ORIGIN_PATH=${ORIGIN_PATH='Cyan4973/xxHash'}
 
 . /package/unpackage/include/common
 
-install() {
-    deinstall
+_install() {
     mkdir -p ${BINDIR} ${MANDIR} ${INCLUDEDIR}
     tar cf - xxhsum xxh32sum xxh64sum | tar xf - -C ${BINDIR}
     tar cf - xxhsum.1 | tar xf - -C ${MANDIR}
     tar cf - xxhash.h | tar xf - -C ${INCLUDEDIR}
 }
 
-entrypoint ${@:-}
+_main ${@:-}

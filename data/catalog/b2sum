@@ -1,0 +1,21 @@
+#!/bin/sh
+
+NAME=${NAME:-'b2sum'}
+VERSION=${VERSION:-'master'}
+ORIGIN_PATH=${ORIGIN_PATH='BLAKE2/BLAKE2'}
+
+. /package/unpackage/include/common
+
+_build() {
+    _clean
+    _patch
+    _make -C b2sum NO_OPENMP=1
+}
+
+_install() {
+    mkdir -p "${BINDIR}" "${MANDIR}"
+    tar cf - -C b2sum b2sum | tar xf - -C ${BINDIR}
+    tar cf - -C b2sum b2sum.1 | tar xf - -C ${MANDIR}
+}
+
+_main ${@:-}

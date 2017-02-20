@@ -7,24 +7,12 @@ ORIGIN_PATH=${ORIGIN_PATH='lz4/lz4'}
 
 . /package/unpackage/include/common
 
-build() {
-    clean
-    test -n "${MAKE}" || exit 111
-
-    set -o errexit
-    with_build_environment ${MAKE} -C lib
-    with_build_environment ${MAKE} -C programs
-    set +o errexit
+_build() {
+    _clean && _make -C lib && _make -C programs
 }
 
-install() {
-    deinstall
-    test -n "${MAKE}" || exit 111
-
-    set -o errexit
-    with_build_environment ${MAKE} -C lib install
-    with_build_environment ${MAKE} -C programs install
-    set +o errexit
+_install() {
+    _make -C lib install && _make -C programs install
 }
 
-entrypoint ${@:-}
+_main ${@:-}

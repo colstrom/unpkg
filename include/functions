@@ -1,0 +1,195 @@
+
+# -*- mode: shell-script -*-
+
+_is_offline() {
+    test ${OFFLINE:-'false'} != false
+}
+
+_is_online() {
+    ! _is_offline
+}
+
+_source_is_available() {
+    test -d ${SOURCE}
+}
+
+_update_source() {
+    if _is_online
+    then
+        _git checkout ${TRUNK}
+        _git pull
+    fi
+}
+
+_fetch_source() {
+    _is_offline || git clone ${ORIGIN} ${SOURCE}
+}
+
+# Workaround for archaic versions of git without -C
+_git() {
+    cd ${SOURCE} || exit 111
+    git ${@:-}
+}
+
+_clean() {
+    _make clean || true
+    _git reset --hard
+    _git clean -d --force
+}
+
+_sync() {
+    if _source_is_available
+    then
+        _clean && _update_source
+    else
+        _fetch_source
+    fi
+
+    _source_is_available && _git checkout ${TAG}
+}
+
+_configure() {
+    cd ${SOURCE} || exit 111
+
+    if test -x configure
+    then
+        ./configure \
+            --prefix="${PREFIX}" \
+            --bindir="${BINDIR}" \
+            --libdir="${LIBDIR}" \
+            --includedir="${INCLUDEDIR}" \
+            --mandir="${MANDIR}" \
+            --sysdepdir="${SYSDEPDIR}" \
+            --dynlibdir="${DYNLIBDIR}" \
+            CFLAGS="${CFLAGS}" \
+            LDFLAGS="${LDFLAGS}" \
+            ${@:-}
+    else
+        true
+    fi
+}
+
+_make() {
+    test -n "${MAKE}" || exit 111
+
+    env \
+        PREFIX="${PREFIX}" \
+        BINDIR="${BINDIR}" \
+        LIBDIR="${LIBDIR}" \
+        INCLUDEDIR="${INCLUDEDIR}" \
+        MANDIR="${MANDIR}" \
+        DYNLIBDIR="${DYNLIBDIR}" \
+        SYSDEPDIR="${SYSDEPDIR}" \
+        CFLAGS="${CFLAGS}" \
+        LDFLAGS="${LDFLAGS}" \
+        CC="${CC}" \
+        INSTALL="${INSTALL}" \
+        make ${@:-}
+}
+
+_patch() {
+    PATCH=/package/unpackage/data/patches/${NAME}
+
+    for patch in ${PATCH} ${PATCH}.$(uname -s)
+    do
+        if test -f ${patch}
+        then
+            git apply ${patch} || exit 111
+        fi
+    done
+}
+
+_build() {
+    _clean
+    _patch
+    _configure
+    _make
+}
+
+_package_is_installed() {
+    test -d ${PACKAGE}
+}
+
+_active_version() {
+    basename "$(readlink ${PACKAGE_ROOT}/${NAME})"
+}
+
+_version_is_active() {
+    test "$(_active_version)" = ${NAME}--${VERSION}
+}
+
+_activate() {
+    if ! _version_is_active
+    then
+        rm -f ${PACKAGE_ROOT}/${NAME}
+        ln -s ${NAME}--${VERSION} ${PACKAGE_ROOT}/${NAME}
+    fi
+}
+
+_deinstall() {
+    _version_is_active && rm -rf ${PACKAGE}
+}
+
+_install() {
+    _make install
+}
+
+_reinstall() {
+    _deinstall
+    _install
+}
+
+_import_commands() {
+    test -e /command || mkdir -p /command
+    find ${PACKAGE_ROOT}/${NAME}/command -exec ln -sf '{}' /command/ \;
+}
+
+_import() {
+    import_commands
+}
+
+_bootstrap() {
+    true
+}
+
+_all() {
+    _sync && _bootstrap && _build && _reinstall && _activate
+}
+
+_help() {
+    cat <<-EOF
+unpackage 0.0.0.develop
+
+usage: unpackage ${NAME} [command]
+
+Commands:
+  B|bootstrap  | bootstraps ${NAME} if required (may be a no-op)
+  I|import     | imports ${NAME} to the system
+  A|activate   | activates ${VERSION} as providing ${NAME}
+  b|build      | builds ${NAME}
+  c|clean      | discards all modifications and untracked files for ${NAME}
+  i|install    | installs ${NAME} to ${PACKAGE}
+  p|patch      | applies any needed patches to ${NAME}
+  s|sync       | fetches the latest upstream code for ${NAME} (unless OFFLINE)
+
+If no command is given, the following commands will be run:
+  sync && bootstrap && build && reinstall && enable
+EOF
+}
+
+_main() {
+    case ${1:-'all'} in
+        -h|--help) _help;;
+        c|clean) _clean;;
+        s|sync) _sync;;
+        B|bootstrap) _bootstrap;;
+        b|build) _build;;
+        i|install) _install;;
+        p|patch) _patch;;
+        a|activate) _activate;;
+        A|all) _all;;
+        *)
+            _help >&2
+            exit 100
+    esac
+}

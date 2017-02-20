@@ -25,6 +25,8 @@ BINDIR=${BINDIR:-${PREFIX}/command}
 LIBDIR=${LIBDIR:-${PREFIX}/library}
 INCLUDEDIR=${INCLUDEDIR:-${PREFIX}/include}
 MANDIR=${MANDIR:-${PREFIX}/manual}
+DYNLIBDIR=${DYNLIBDIR:-${PREFIX}/library.so}
+SYSDEPDIR=${SYSDEPDIR:-${PREFIX}/sysdeps}
 DESTDIR=${DESTDIR:-${PACKAGE_DIR}}
 
 if test -d /opt/gcc
@@ -76,6 +78,8 @@ with_build_environment() {
         LIBDIR="${LIBDIR}" \
         INCLUDEDIR="${INCLUDEDIR}" \
         MANDIR="${MANDIR}" \
+        DYNLIBDIR="${DYNLIBDIR}" \
+        SYSDEPDIR="${SYSDEPDIR}" \
         DESTDIR="${DESTDIR}" \
         CFLAGS="${CFLAGS}" \
         LDFLAGS="${LDFLAGS}" \

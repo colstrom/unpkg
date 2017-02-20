@@ -1,23 +1,25 @@
 diff --git i/Makefile.in w/Makefile.in
-index fbf7cd8..2825396 100644
+index fbf7cd8..5e59510 100644
 --- i/Makefile.in
 +++ w/Makefile.in
-@@ -105,18 +105,6 @@ parse.c  parse.h : parse.y
- 	mv y.tab.c parse.c
+@@ -106,16 +106,16 @@ parse.c  parse.h : parse.y
  	mv y.tab.h parse.h
  
--array.c : array.w
+ array.c : array.w
 -	notangle -R'"array.c"' array.w | cpif array.c
--
--array.h : array.w
++	touch array.c
+ 
+ array.h : array.w
 -	notangle -R'"array.h"' array.w | cpif array.h
--
--printf.c : printf.w
++	touch array.h
+ 
+ printf.c : printf.w
 -	notangle -R'"printf.c"' printf.w | cpif printf.c
--
--printf.h : printf.w
++	touch printf.c
+ 
+ printf.h : printf.w
 -	notangle -R'"printf.h"' printf.w | cpif printf.h
--
++	touch printf.h
+ 
  scancode.c :  makescan.c  scan.h
  	$(CC) -o makescan.exe  makescan.c
- 	rm -f scancode.c

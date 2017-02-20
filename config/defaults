@@ -1,0 +1,90 @@
+
+# -*- mode: shell-script -*-
+
+set -o nounset
+test ${DEBUGGING:-'false'} = false || set -o xtrace
+
+############
+# Required #
+############
+
+# The name of the package to manage
+NAME=${NAME}
+# The version of the package to manage
+VERSION=${VERSION}
+
+# The path on ORIGIN_HOST to use for updates
+# For GitHub, this should be set to user/repo
+ORIGIN_PATH=${ORIGIN_PATH}                  
+
+#######################
+# Reasonable Defaults #
+#######################
+# These may need to be overridden on a per-package basis.
+
+# The "main" branch of the source repository, for updates.
+TRUNK=${TRUNK:-'master'}
+
+# Change this if the repository tags do not map nicely to versions.
+# A common example is VERSION=1.2.3 vs TAG=v1.2.3
+TAG=${TAG:-${VERSION}}
+
+# Change this if using git://, etc
+ORIGIN_PREFIX=${ORIGIN_PREFIX:-'https://'}
+
+# The host to download updates from.
+# This is meant to accomodate mirrors
+ORIGIN_HOST=${ORIGIN_HOST='github.com'}
+
+# This should be left as-is, unless you have a particularly strange case. While
+# setting this explicitly allows for handling of whatever bizarre origins you
+# require, it is also likely to make it difficult to use alternate sources for
+# that package.
+ORIGIN=${ORIGIN:-"${ORIGIN_PREFIX}${ORIGIN_HOST}/${ORIGIN_PATH}"}
+
+# Changing ROOT is discouraged, but may be required in a restricted environment.
+ROOT=${ROOT:-''}
+
+# All packages are installed here
+PACKAGE_ROOT=${ROOT}/package
+
+# All source is fetched here
+SOURCE_ROOT=${ROOT}/source
+
+# All commands from packages are linked here
+COMMAND_ROOT=${ROOT}/command  
+
+######################
+# Don't change these #
+######################
+
+PACKAGE=${PACKAGE_ROOT}/${NAME}--${VERSION}
+SOURCE=${SOURCE_ROOT}/${ORIGIN_HOST}/${ORIGIN_PATH}
+
+###############################
+# Build Environment Variables #
+###############################
+# These settings allow many packages to "just work" without modification to
+# build processes. Changing them is discouraged.
+
+# make sure gcc is in PATH (mostly for illumos distributions)
+if test -d /opt/gcc
+then
+    export PATH=${PATH}:/opt/gcc/*/bin
+fi
+
+CC=$(command -v gcc || command -v cc)
+MAKE=$(command -v gmake || command -v make)
+INSTALL=$(command -v ginstall || command -v install)
+
+CFLAGS=${CFLAGS:-'-Os -fPIC'}
+LDFLAGS=${LDFLAGS:-'-s'}
+
+PREFIX=${PREFIX:-${PACKAGE}}
+BINDIR=${BINDIR:-${PREFIX}/command}
+LIBDIR=${LIBDIR:-${PREFIX}/library}
+INCLUDEDIR=${INCLUDEDIR:-${PREFIX}/include}
+MANDIR=${MANDIR:-${PREFIX}/manual}
+DYNLIBDIR=${DYNLIBDIR:-${PREFIX}/library.so}
+SYSDEPDIR=${SYSDEPDIR:-${PREFIX}/sysdeps}
+DESTDIR=${DESTDIR:-${PACKAGE}}

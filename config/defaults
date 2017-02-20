@@ -15,7 +15,7 @@ VERSION=${VERSION}
 
 # The path on ORIGIN_HOST to use for updates
 # For GitHub, this should be set to user/repo
-ORIGIN_PATH=${ORIGIN_PATH}                  
+ORIGIN_PATH=${ORIGIN_PATH}
 
 #######################
 # Reasonable Defaults #
@@ -52,7 +52,7 @@ PACKAGE_ROOT=${ROOT}/package
 SOURCE_ROOT=${ROOT}/source
 
 # All commands from packages are linked here
-COMMAND_ROOT=${ROOT}/command  
+COMMAND_ROOT=${ROOT}/command
 
 ######################
 # Don't change these #
@@ -85,6 +85,6 @@ BINDIR=${BINDIR:-${PREFIX}/command}
 LIBDIR=${LIBDIR:-${PREFIX}/library}
 INCLUDEDIR=${INCLUDEDIR:-${PREFIX}/include}
 MANDIR=${MANDIR:-${PREFIX}/manual}
-DYNLIBDIR=${DYNLIBDIR:-${PREFIX}/library.so}
+DYNLIBDIR=${DYNLIBDIR:-${PREFIX}/library}
 SYSDEPDIR=${SYSDEPDIR:-${PREFIX}/sysdeps}
 DESTDIR=${DESTDIR:-${PACKAGE}}

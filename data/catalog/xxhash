@@ -17,6 +17,7 @@ fi
 
 install() {
     deinstall
+    mkdir -p ${PACKAGE_DIR}
     tar cf - xxhsum xxh32sum xxh64sum | tar xf - -C ${PACKAGE_DIR}
 }
 

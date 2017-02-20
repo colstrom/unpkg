@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -o nounset
+test ${DEBUGGING:-'false'} = false || set -o xtrace
+
+NAME=${NAME:-'xxhash'}
+VERSION=${VERSION:-'0.6.2'}
+TAG=${TAG:-v${VERSION}}
+ORIGIN_PATH=${ORIGIN_PATH='Cyan4973/xxHash'}
+
+. /package/unpackage/include/common
+
+if test -d /opt/gcc
+then
+    export PATH=${PATH}:/opt/gcc/*/bin
+fi
+
+install() {
+    deinstall
+    tar cf - xxhsum xxh32sum xxh64sum | tar xf - -C ${PACKAGE_DIR}
+}

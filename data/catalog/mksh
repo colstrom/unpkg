@@ -1,0 +1,20 @@
+#!/bin/sh
+
+NAME=${NAME:-'mksh'}
+VERSION=${VERSION:-'R54'}
+TAG=${TAG:-mksh-${VERSION}}
+ORIGIN_PATH=${ORIGIN_PATH='MirBSD/mksh'}
+
+. /package/unpkg/include/common
+
+_build() {
+    _with_build_environment sh Build.sh
+}
+
+_install() {
+    mkdir -p ${PACKAGE} ${BINDIR} ${MANDIR}
+
+    tar cf - -C ${SOURCE} mksh | tar xf - -C ${BINDIR}
+    tar cf - -C ${SOURCE} mksh.1 lksh.1 | tar xf - -C ${MANDIR}
+}
+_main ${@:-}

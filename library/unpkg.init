@@ -87,7 +87,7 @@ _is_online() {
 }
 
 _as_unpkg_user() {
-    test ${#} = 0 || su ${UNPKG_USER} -c ${@}
+    test ${#} = 0 || su ${UNPKG_USER} -c "${@}"
 }
 
 _git() {
@@ -109,8 +109,8 @@ id "${UNPKG_USER}" >/dev/null 2>/dev/null || _error_user_not_found
 
 for directory in ${SOURCE_ROOT} ${PACKAGE_ROOT} ${COMMAND_ROOT}
 do
-    mkdir -p ${directory}
-    chown -R ${UNPKG_USER} ${directory}
+    mkdir -p ${directory} || exit 111
+    chown -R ${UNPKG_USER} ${directory} || exit 111
 done
 
 if test -d ${SOURCE}

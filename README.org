@@ -66,6 +66,12 @@
     curl https://raw.githubusercontent.com/colstrom/unpkg/develop/library/unpkg.init | sh
   #+END_SRC
 
+* Usage
+
+  - Add =/command= to your PATH.
+  - Run ~unpkg~ to see a list of available packages.
+  - Run ~unpkg <package>~, where =<package>= is a package you want.
+
 * License
 
   ~unpkg~ is available under the [[https://tldrlegal.com/license/mit-license][MIT License]]. See ~LICENSE.txt~ for the full text.

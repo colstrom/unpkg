@@ -5,7 +5,7 @@ VERSION=${VERSION:-'0.6.2'}
 TAG=${TAG:-v${VERSION}}
 ORIGIN_PATH=${ORIGIN_PATH='Cyan4973/xxHash'}
 
-. /package/unpackage/include/common
+. /package/unpkg/include/common
 
 _install() {
     mkdir -p ${BINDIR} ${MANDIR} ${INCLUDEDIR}

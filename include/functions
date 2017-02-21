@@ -99,7 +99,7 @@ _make() {
 }
 
 _patch() {
-    PATCH=/package/unpackage/data/patches/${NAME}
+    PATCH=/package/unpkg/data/patches/${NAME}
 
     for patch in ${PATCH} ${PATCH}.$(uname -s)
     do
@@ -166,9 +166,9 @@ _all() {
 
 _help() {
     cat <<-EOF
-unpackage 0.0.0.develop
+unpkg 0.0.0.develop
 
-usage: unpackage ${NAME} [command]
+usage: unpkg ${NAME} [command]
 
 Commands:
   A|activate      | activates ${VERSION} as providing ${NAME}

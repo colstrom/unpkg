@@ -4,7 +4,7 @@ NAME=${NAME:-'b2sum'}
 VERSION=${VERSION:-'master'}
 ORIGIN_PATH=${ORIGIN_PATH='BLAKE2/BLAKE2'}
 
-. /package/unpackage/include/common
+. /package/unpkg/include/common
 
 _build() {
     _clean

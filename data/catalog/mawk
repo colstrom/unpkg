@@ -4,7 +4,7 @@ NAME=${NAME:-'mawk'}
 VERSION=${VERSION:-'1.9.9.6'}
 ORIGIN_PATH=${ORIGIN_PATH:-'ploxiln/mawk-2'}
 
-. /package/unpackage/include/common
+. /package/unpkg/include/common
 
 _configure() {
     cd ${SOURCE} || exit 111

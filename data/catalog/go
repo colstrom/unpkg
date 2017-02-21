@@ -7,7 +7,7 @@ TAG=${TAG:-go${VERSION}}
 ORIGIN_HOST=${ORIGIN_HOST='go.googlesource.com'}
 ORIGIN_PATH=${ORIGIN_PATH='go'}
 
-. /package/unpackage/include/common
+. /package/unpkg/include/common
 
 GOROOT_BOOTSTRAP=${GOROOT_BOOTSTRAP:-${PACKAGE_ROOT}/${NAME}}
 GOROOT_FINAL=${GOROOT_FINAL:-${PACKAGE_DIR}}

@@ -1,4 +1,4 @@
 #!/bin/sh
 
-. /package/unpackage/include/environment
-. /package/unpackage/include/functions
+. /package/unpkg/include/environment
+. /package/unpkg/include/functions

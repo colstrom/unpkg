@@ -1,4 +1,4 @@
 
 # -*- mode: shell-script -*-
 
-. /package/unpackage/config/defaults
+. /package/unpkg/config/defaults

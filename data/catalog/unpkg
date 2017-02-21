@@ -1,0 +1,17 @@
+#!/bin/sh
+
+NAME=${NAME:-'unpkg'}
+VERSION=${VERSION:-'develop'}
+ORIGIN_PATH=${ORIGIN_PATH='colstrom/unpkg'}
+
+. /package/unpkg/include/common
+
+_build() {
+    true
+}
+
+_install() {
+    tar cf - -C ${SOURCE} | tar xf - -C ${PACKAGE}
+}
+
+_main ${@:-}

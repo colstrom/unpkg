@@ -1,0 +1,75 @@
+#+TITLE: unpkg
+#+LATEX: \pagebreak
+
+* Overview
+
+  ~unpkg~ is an adventure to discover what the world looks like if we approached
+  portability from a different perspective:
+  
+  Rather than throwing out everything that isn't available everywhere, let's try
+  making things run more consistently in more places.
+
+* Why does this exist?
+
+  Because standards like XPG, POSIX, the Single UNIX Specification exist to
+  define how things *are*, not how they *should be*. ~unpkg~ is a journey to
+  build a better world.
+
+* The Platforms
+
+  The test platforms are currently (February 2017):
+  
+  | Family  | Distribution | Release |
+  |---------+--------------+---------|
+  | BSD     | DragonFly    |     4.6 |
+  | BSD     | FreeBSD      |      11 |
+  | BSD     | macOS        |    12.4 |
+  | BSD     | NetBSD       |     7.0 |
+  | BSD     | OpenBSD      |     6.0 |
+  | illumos | OmniOS       | r151014 |
+  | illumos | SmartOS      | support |
+  | Linux   | Alpine       |     3.5 |
+  | Linux   | CentOS       |       7 |
+  | Linux   | Debian       |       8 |
+  | Linux   | Fedora       |      25 |
+  | Linux   | OpenSUSE     |    42.2 |
+  | Linux   | RHEL         |       7 |
+  | Linux   | SLES         |      12 |
+  | Linux   | Ubuntu       |   16.04 |
+  |---------+--------------+---------|
+
+  This is intended as a representative sample for the purposes of portability.
+
+* Requirements
+
+  At minimum, you'll need a working copy of ~git~. To do anything useful, you'll
+  also want a compiler (~gcc~ and ~clang~ are known to work) and a copy of
+  ~make~ (GNU make is known to work).
+
+* Installation
+  
+  Everyone loves piping things from the internet to a shell, right?
+
+  Assuming =/package=, =/source=, and =/commmand= exist and are writable by
+  =${UNPKG_USER}= you can run:
+
+  #+BEGIN_SRC shell
+    curl https://raw.githubusercontent.com/colstrom/unpkg/develop/library/unpkg.init | env UNPKG_USER=$(whoami) sh
+  #+END_SRC
+
+  If that seems like a lot of work, the installer can do that for you, if you
+  run it as root.
+
+  #+BEGIN_SRC shell
+    # as root
+    export UNPKG_LET_ME_RUN_ARBITRARY_CODE_FROM_THE_INTERNET_AS_ROOT=true
+    curl https://raw.githubusercontent.com/colstrom/unpkg/develop/library/unpkg.init | sh
+  #+END_SRC
+
+* License
+
+  ~unpkg~ is available under the [[https://tldrlegal.com/license/mit-license][MIT License]]. See ~LICENSE.txt~ for the full text.
+
+* Contributors
+
+  - [[https://colstrom.github.io/][Chris Olstrom]] | [[mailto:chris@olstrom.com][e-mail]] | [[https://twitter.com/ChrisOlstrom][Twitter]]

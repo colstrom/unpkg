@@ -91,7 +91,7 @@ _as_unpkg_user() {
 }
 
 _git() {
-    test ${#} = 0 || as_unpkg_user ${GIT} ${@}
+    test ${#} = 0 || _as_unpkg_user ${GIT} ${@}
 }
 
 
@@ -101,7 +101,7 @@ then
     test ${UNPKG_LET_ME_RUN_ARBITRARY_CODE_FROM_THE_INTERNET_AS_ROOT:-'false'} = 'false' || abort 100
 fi
 
-test -z ${GIT} || _error_missing_git
+test -z ${GIT} || _error_git_not_found
 id "${UNPKG_USER}" >/dev/null 2>/dev/null || _error_user_not_found
 
 for directory in ${SOURCE_ROOT} ${PACKAGE_ROOT} ${COMMAND_ROOT}
@@ -115,7 +115,7 @@ then
     cd ${SOURCE} || exit 111
     _git reset --hard
     _git clean -d --force
-    if is_offline
+    if _is_offline
     then
         _git checkout ${TRUNK}
         _git pull

@@ -87,11 +87,11 @@ _is_online() {
 }
 
 _as_unpkg_user() {
-    test ${#} = 0 || su ${UNPKG_USER} -c "'${@}'"
+    test ${#} = 0 || su ${UNPKG_USER} -c "${*}"
 }
 
 _git() {
-    test ${#} = 0 || _as_unpkg_user ${GIT} "${@}"
+    test ${#} = 0 || _as_unpkg_user ${GIT} ${@}
 }
 
 

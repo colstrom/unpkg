@@ -91,7 +91,7 @@ _as_unpkg_user() {
 }
 
 _git() {
-    test ${#} = 0 || _as_unpkg_user ${GIT} ${@}
+    test ${#} = 0 || _as_unpkg_user ${GIT} "${@}"
 }
 
 

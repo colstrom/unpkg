@@ -9,20 +9,38 @@ ORIGIN_PATH=${ORIGIN_PATH='go'}
 
 . /package/unpkg/include/common
 
-GOROOT_BOOTSTRAP=${GOROOT_BOOTSTRAP:-${PACKAGE_ROOT}/${NAME}}
-GOROOT_FINAL=${GOROOT_FINAL:-${PACKAGE_DIR}}
+PATH=/package/go/command:${PATH}
 
-build() {
-    cd ${WORKING}/src || exit 111
-    env \
-        GOROOT_BOOTSTRAP="${GOROOT_BOOTSTRAP}" \
-        GOROOT_FINAL="${GOROOT_FINAL}" \
-        ${WORKING}/src/make.bash
+_bootstrap() {
+    GO=${GO:-$(command -v go)}
+
+    test -n ${GO} || test ${VERSION} = '1.4.3' || env VERSION=1.4.3 unpkg go
 }
 
-install() {
-    mkdir -p ${PACKAGE_DIR} || exit 111
-    tar cf - -C ${WORKING} . | tar xf - -C ${PACKAGE_DIR}
+_build() {
+    cd ${SOURCE}/src || exit 111
+
+    GO=${GO:-$(command -v go)}
+
+    if test -n "${GO}"
+    then
+        env \
+            GOROOT_BOOTSTRAP=$(${GO} env GOROOT) \
+            GOROOT_FINAL=${PACKAGE} \
+            ${SOURCE}/src/make.bash
+    else
+        env \
+            GOROOT_FINAL=${PACKAGE} \
+            ${SOURCE}/src/make.bash
+    fi
 }
 
-entrypoint ${@:-}
+_install() {
+    mkdir -p ${PACKAGE} || exit 111
+    tar cf - -C ${SOURCE} . | tar xf - -C ${PACKAGE} || exit 111
+    mkdir -p ${BINDIR} || exit 111
+    ln -s ${PACKAGE}/bin/go ${BINDIR}/go
+    ln -s ${PACKAGE}/bin/gofmt ${BINDIR}/gofmt
+}
+
+_main ${@:-}

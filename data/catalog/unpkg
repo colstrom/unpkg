@@ -11,6 +11,7 @@ _build() {
 }
 
 _install() {
+    mkdir -p ${PACKAGE}
     tar cf - -C ${SOURCE} | tar xf - -C ${PACKAGE}
 }
 

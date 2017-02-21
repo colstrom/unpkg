@@ -130,7 +130,7 @@ else
     _git checkout ${TAG}
 fi
 
-_as_unpkg_user ln -sf ${ORIGIN} ${PACKAGE}
+_as_unpkg_user ln -sf ${SOURCE} ${PACKAGE}
 _as_unpkg_user ln -sf ${NAME}--${VERSION} ${PACKAGE_ROOT}/${NAME}
 _as_unpkg_user ln -sf ${PACKAGE_ROOT}/${NAME}/command/* ${COMMAND_ROOT}/
 

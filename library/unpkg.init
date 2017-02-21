@@ -56,7 +56,8 @@ EOF
 
 _warning_wtf_are_you_doing() {
     if test ${UNPKG_ITS_OK_IM_FROM_THE_INTERNET:-'false'} = 'false'
-    cat <<-EOF >&2
+    then
+        cat <<-EOF >&2
 warning: UNPKG_USER is set to "root"
 
 You should create a non-privileged user and set UNPKG_USER to the name of that
@@ -74,6 +75,7 @@ You can suppress this warning by setting UNPKG_ITS_OK_IM_FROM_THE_INTERNET to a
 non-false value.
 
 EOF
+    fi
 }
 
 _is_offline() {

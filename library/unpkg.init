@@ -118,7 +118,7 @@ then
     cd ${SOURCE} || exit 111
     _git reset --hard
     _git clean -d --force
-    if _is_offline
+    if _is_online
     then
         _git checkout ${TRUNK}
         _git pull

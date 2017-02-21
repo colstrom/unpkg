@@ -1,0 +1,134 @@
+#!/bin/sh
+
+set -o nounset
+test ${DEBUGGING:-'false'} = 'false' || set -o xtrace
+
+UNPKG_USER=${UNPKG_USER:-'root'}
+ROOT=${ROOT:-''}
+PACKAGE_ROOT=${PACKAGE_ROOT:-${ROOT}/package}
+SOURCE_ROOT=${SOURCE_ROOT:-${ROOT}/source}
+COMMAND_ROOT=${COMMAND_ROOT:-${ROOT}/command}
+
+ORIGIN_PREFIX=${ORIGIN_PREFIX:-'https://'}
+ORIGIN_HOST=${ORIGIN_HOST:-'github.com'}
+ORIGIN_PATH=${ORIGIN_PATH:-'colstrom/unpkg'}
+ORIGIN=${ORIGIN_PREFIX}${ORIGIN_HOST}/${ORIGIN_PATH}
+
+SOURCE=${SOURCE_ROOT}/${ORIGIN_HOST}/${ORIGIN_PATH}
+
+NAME='unpkg'
+TRUNK=${TRUNK:-'develop'}
+VERSION=${VERSION:-${TRUNK}}
+TAG=${TAG:-${VERSION}}
+
+PACKAGE=${PACKAGE_ROOT}/${NAME}--${VERSION}
+
+PATH=/command:/package/git/command:/package/gnu-make/command:/package/gcc/command:${PATH}
+export PATH
+
+GIT=${GIT:-$(command -v git)}
+
+_abort() {
+    exit ${1:-111}
+}
+
+_error_git_not_found() {
+    cat <<-EOF >&2
+error: git not found
+
+${NAME} uses git to manage the source code of packages. Please provide a working
+copy in PATH or set the GIT environment variable to a compatible alternative.
+
+EOF
+    _abort
+}
+
+_error_user_not_found() {
+    cat <<-EOF >&2
+error: user not found
+
+UNPKG_USER is set to "${UNPKG_USER}", but that user does not exist. Please
+create this user before installing ${NAME}.
+
+EOF
+    _abort
+}
+
+_warning_wtf_are_you_doing() {
+    if test ${UNPKG_ITS_OK_IM_FROM_THE_INTERNET:-'false'} = 'false'
+    cat <<-EOF >&2
+warning: UNPKG_USER is set to "root"
+
+You should create a non-privileged user and set UNPKG_USER to the name of that
+user. This user will be used to build packages from source code. Doing this as
+root is literally choosing to run arbitrary code from the internet without any
+limitations on what that code can do.
+
+This is a terrible idea. Please don't do this.
+
+If you understand the risks, and still want to do it for some reason, you can
+set UNPKG_LET_ME_RUN_ARBITRARY_CODE_FROM_THE_INTERNET_AS_ROOT to a non-false
+value.
+
+You can suppress this warning by setting UNPKG_ITS_OK_IM_FROM_THE_INTERNET to a
+non-false value.
+
+EOF
+}
+
+_is_offline() {
+    test ${OFFLINE:-'false'} != 'false'
+}
+
+_is_online() {
+    ! _is_offline
+}
+
+_as_unpkg_user() {
+    test ${#} = 0 || su ${UNPKG_USER} -c ${@}
+}
+
+_git() {
+    test ${#} = 0 || as_unpkg_user ${GIT} ${@}
+}
+
+
+if test "${UNPKG_USER}" = root
+then
+    _warning_wtf_are_you_doing
+    test ${UNPKG_LET_ME_RUN_ARBITRARY_CODE_FROM_THE_INTERNET_AS_ROOT:-'false'} = 'false' || abort 100
+fi
+
+test -z ${GIT} || _error_missing_git
+id "${UNPKG_USER}" >/dev/null 2>/dev/null || _error_user_not_found
+
+for directory in ${SOURCE_ROOT} ${PACKAGE_ROOT} ${COMMAND_ROOT}
+do
+    mkdir -p ${directory}
+    chown -R ${UNPKG_USER} ${directory}
+done
+
+if test -d ${SOURCE}
+then
+    cd ${SOURCE} || exit 111
+    _git reset --hard
+    _git clean -d --force
+    if is_offline
+    then
+        _git checkout ${TRUNK}
+        _git pull
+    fi
+    _git checkout ${TAG}
+else
+    _git clone ${ORIGIN} ${SOURCE}
+    cd ${SOURCE} || exit 111
+    _git checkout ${TAG}
+fi
+
+_as_unpkg_user ln -sf ${ORIGIN} ${PACKAGE}
+_as_unpkg_user ln -sf ${NAME}--${VERSION} ${PACKAGE_ROOT}/${NAME}
+_as_unpkg_user ln -sf ${PACKAGE_ROOT}/${NAME}/command/* ${COMMAND_ROOT}/
+
+cat <<-EOF >&2
+success: unpkg initialized
+EOF

@@ -153,7 +153,7 @@ _import_commands() {
 }
 
 _import() {
-    import_commands
+    _import_commands
 }
 
 _bootstrap() {

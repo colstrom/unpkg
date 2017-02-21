@@ -69,9 +69,7 @@ _configure() {
     fi
 }
 
-_make() {
-    test -n "${MAKE}" || exit 111
-
+_with_build_environment() {
     env \
         PREFIX="${PREFIX}" \
         BINDIR="${BINDIR}" \
@@ -84,7 +82,20 @@ _make() {
         LDFLAGS="${LDFLAGS}" \
         CC="${CC}" \
         INSTALL="${INSTALL}" \
-        ${MAKE} ${@:-}
+        ${@:-'false'}
+}
+
+_make() {
+    test -n "${MAKE}" || exit 111
+
+    # If only ${@:-} was portable...
+
+    if test ${#} = 0
+    then
+        _with_build_environment ${MAKE}
+    else
+        _with_build_environment ${MAKE} ${@}
+    fi
 }
 
 _patch() {

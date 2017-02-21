@@ -3,6 +3,7 @@
 NAME=${NAME:-'unpkg'}
 VERSION=${VERSION:-'develop'}
 ORIGIN_PATH=${ORIGIN_PATH='colstrom/unpkg'}
+TRUNK=${TRUNK:-'develop'}
 
 . /package/unpkg/include/common
 

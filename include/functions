@@ -111,10 +111,7 @@ _patch() {
 }
 
 _build() {
-    _clean
-    _patch
-    _configure
-    _make
+    _clean && _patch && _configure && _make
 }
 
 _package_is_installed() {

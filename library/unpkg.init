@@ -98,7 +98,10 @@ _git() {
 if test "${UNPKG_USER}" = root
 then
     _warning_wtf_are_you_doing
-    test ${UNPKG_LET_ME_RUN_ARBITRARY_CODE_FROM_THE_INTERNET_AS_ROOT:-'false'} = 'false' || abort 100
+    if test ${UNPKG_LET_ME_RUN_ARBITRARY_CODE_FROM_THE_INTERNET_AS_ROOT:-'false'} = 'false'
+    then
+       abort 100
+    fi
 fi
 
 test -z ${GIT} || _error_git_not_found

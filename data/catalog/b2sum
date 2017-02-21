@@ -7,9 +7,7 @@ ORIGIN_PATH=${ORIGIN_PATH='BLAKE2/BLAKE2'}
 . /package/unpkg/include/common
 
 _build() {
-    _clean
-    _patch
-    _make -C b2sum NO_OPENMP=1
+    _clean && _make -C b2sum NO_OPENMP=1
 }
 
 _install() {

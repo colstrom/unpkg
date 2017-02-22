@@ -13,9 +13,11 @@ then
 fi
 
 _configure() {
+    test -n "${AWK}" || exit 111
+
     cd ${SOURCE}/heirloom/heirloom-sh || exit 111
-    pwd
-    awk -f /package/unpkg/data/support/heirloom-sh/configure.awk \
+
+    ${AWK} -f /package/unpkg/data/support/heirloom-sh/configure.awk \
         -F = \
         -v BINDIR=${BINDIR} \
         -v MANDIR=${MANDIR} \

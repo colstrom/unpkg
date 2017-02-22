@@ -84,6 +84,7 @@ CC=$(command -v gcc || command -v cc)
 MAKE=$(command -v gmake || command -v make)
 INSTALL=$(command -v ginstall || command -v install)
 STRIP=$(command -v gstrip || command -v strip)
+AWK=$(command -v mawk || command -v nawk || command -v gawk || command -v awk)
 
 CFLAGS=${CFLAGS:-'-Os -fPIC'}
 LDFLAGS=${LDFLAGS:-'-s'}

@@ -76,6 +76,7 @@ fi
 CC=$(command -v gcc || command -v cc)
 MAKE=$(command -v gmake || command -v make)
 INSTALL=$(command -v ginstall || command -v install)
+STRIP=$(command -v gstrip || command -v strip)
 
 CFLAGS=${CFLAGS:-'-Os -fPIC'}
 LDFLAGS=${LDFLAGS:-'-s'}

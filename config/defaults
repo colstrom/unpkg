@@ -70,8 +70,15 @@ SOURCE=${SOURCE_ROOT}/${ORIGIN_HOST}/${ORIGIN_PATH}
 # make sure gcc is in PATH (mostly for illumos distributions)
 if test -d /opt/gcc
 then
-    export PATH=${PATH}:/opt/gcc/*/bin
+    PATH=${PATH}:/opt/gcc/*/bin
 fi
+
+if test -d /usr/xpg4/bin
+then
+    PATH=/usr/xpg4/bin:${PATH}
+fi
+
+export PATH
 
 CC=$(command -v gcc || command -v cc)
 MAKE=$(command -v gmake || command -v make)

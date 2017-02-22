@@ -103,9 +103,14 @@ _setup_filesystem() {
 }
 
 _clean() {
-    cd ${SOURCE} || exit 111
-    _git reset --hard
-    _git clean -d --force
+    if test -d ${SOURCE}
+    then
+        cd ${SOURCE} || exit 111
+        _git reset --hard
+        _git clean -d --force
+    else
+        true
+    fi
 }
 
 _sync() {

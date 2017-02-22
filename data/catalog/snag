@@ -1,0 +1,18 @@
+#!/bin/sh
+
+NAME=${NAME:-'snag'}
+VERSION=${VERSION:-'master'}
+ORIGIN_PATH=${ORIGIN_PATH='Tonkpils/snag'}
+
+. /package/unpkg/include/common
+
+_build() {
+    go get -u -v github.com/Tonkpils/snag
+}
+
+_install() {
+    mkdir -p ${BINDIR}
+    tar cf - -C ${GOPATH}/bin snag | tar xf - -C ${BINDIR}
+}
+
+_main ${@:-}

@@ -1,0 +1,13 @@
+diff --git i/heirloom/heirloom-sh/name.c w/heirloom/heirloom-sh/name.c
+index 673ede4..96b2120 100644
+--- i/heirloom/heirloom-sh/name.c
++++ w/heirloom/heirloom-sh/name.c
+@@ -287,6 +287,8 @@ set_builtins_path(void)
+                         ucb_builtins++;
+                         break;
+                 }
++                else if (patheq(path, "/command"))
++                        break;
+                 else if (patheq(path, "/usr/bin"))
+                         break;
+                 else if (patheq(path, "/bin"))

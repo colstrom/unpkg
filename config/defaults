@@ -104,7 +104,7 @@ MANUAL_DIR=${MANUAL_DIR:-${PACKAGE}/manual}
 # in PATH, but a user probably wouldn't. This is what "libexec" is supposed to
 # be, according to the FHS (if you ignore the part where it says using "lib" for
 # this purpose is acceptable, as long as you don't do both).
-TOOL_DIR=${TOOL_DIR:-${PACKAGE}/tool
+TOOL_DIR=${TOOL_DIR:-${PACKAGE}/tool}
 
 ###############################
 # Build Environment Variables #
@@ -160,7 +160,7 @@ LDFLAGS=${LDFLAGS:-'-s'}
 PREFIX=${PREFIX:-${PACKAGE}}
 EPREFIX=${EPREFIX:-${PACKAGE}}
 
-BINDIR=${BINDIR:-${COMMAND_DIR}
+BINDIR=${BINDIR:-${COMMAND_DIR}}
 DYNLIBDIR=${DYNLIBDIR:-${LIBRARY_DIR}}
 INCLUDEDIR=${INCLUDEDIR:-${INCLUDE_DIR}}
 LIBDIR=${LIBDIR:-${LIBRARY_DIR}}

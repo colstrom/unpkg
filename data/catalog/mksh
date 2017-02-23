@@ -5,16 +5,16 @@ VERSION=${VERSION:-'R54'}
 TAG=${TAG:-mksh-${VERSION}}
 ORIGIN_PATH=${ORIGIN_PATH='MirBSD/mksh'}
 
-. /package/unpkg/include/common
+. ${INCLUDE}/functions
 
 _build() {
     _with_build_environment sh Build.sh
 }
 
 _install() {
-    mkdir -p ${PACKAGE} ${BINDIR} ${MANDIR}
+    mkdir -p ${COMMAND_DIR} ${MANUAL_DIR}/man1
 
-    tar cf - -C ${SOURCE} mksh | tar xf - -C ${BINDIR}
-    tar cf - -C ${SOURCE} mksh.1 lksh.1 | tar xf - -C ${MANDIR}
+    tar cf - -C ${BUILD} mksh | tar xf - -C ${COMMAND_DIR}
+    tar cf - -C ${BUILD} mksh.1 lksh.1 | tar xf - -C ${MANUAL_DIR}/man1
 }
 _main ${@:-}

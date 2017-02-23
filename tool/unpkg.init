@@ -43,6 +43,19 @@ EOF
     _abort
 }
 
+_error_su_not_found() {
+    cat <<-EOF >&2
+error: su not found
+
+Wait, what? There's no "su" in your PATH. That's... interesting.
+
+If you're using "sudo" to run this tool as ${UNPKG_USER}, you should check your
+configuration and see if it's discarding your PATH.
+
+EOF
+    _abort
+}
+
 _error_user_not_found() {
     cat <<-EOF >&2
 error: user not found
@@ -119,7 +132,16 @@ _is_online() {
 }
 
 _as_unpkg_user() {
-    test ${#} = 0 || su ${UNPKG_USER} -c "${*}"
+    if test ${#} -gt 0
+    then
+        if test "$(whoami)" = ${UNPKG_USER}
+        then
+           eval "${*}"
+        else
+            test -n "${SU}" || _error_su_not_found
+            su ${UNPKG_USER} -c "${*}"
+        fi
+    fi
 }
 
 _git() {

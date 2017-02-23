@@ -1,8 +1,6 @@
 
 # -*- mode: shell-script -*-
 
-. ${CONFIG}/commands
-
 ###########################
 # Toolchain Configuration #
 ###########################

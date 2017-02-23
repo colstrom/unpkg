@@ -1,19 +1,43 @@
 #!/bin/sh
+# -*- mode: shell-script -*-
 
 set -o nounset
 
-packages() {
-    find /package/unpkg/data/catalog -type f | sed "s#^/package/unpkg/data/catalog/##"
+test ${DEBUGGING:-'false'} = 'false' || set -o xtrace
+
+ROOT=${ROOT:-''}
+PACKAGE_ROOT=${PACKAGE_ROOT:-${ROOT}/package}
+UNPKG=${UNPKG:-${PACKAGE_ROOT}/unpkg}
+CONFIG=${CONFIG:-${UNPKG}/config}
+
+. ${CONFIG}/unpkg
+
+_error_package_not_found() {
+    cat <<-EOF >&2
+error: package not found: "${1:-}"
+
+You can get a list of known packages by running unpkg with no arguments.
+
+EOF
+    exit 100
+}
+
+_packages() {
+    find "${CATALOG}/" -type f | tr -s / | sed "s#^${CATALOG}/##"
+}
+
+_package() {
+    if _packages | grep -q "^${1:-}\$"
+    then
+        env CONFIG=${CONFIG} exec ${CATALOG}/${@:-}
+    else
+        _error_package_not_found "${@:-}"
+    fi
 }
 
 if test ${#} = 0
 then
-    packages;
+    _packages
 else
-    if packages | grep -q "^${1}\$"
-    then
-        exec /package/unpkg/data/catalog/${@}
-    else
-        printf "\"%s\" is not a recognized package" "${1}"
-    fi
+    _package "${@:-}"
 fi

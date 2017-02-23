@@ -1,12 +1,6 @@
 
 # -*- mode: shell-script -*-
 
-# Bail out on unset variables.
-set -o nounset
-
-# Centralized toggle for tracing.
-test ${DEBUGGING:-'false'} = false || set -o xtrace
-
 ################################
 # unpkg Internal Configuration #
 ################################
@@ -14,6 +8,12 @@ test ${DEBUGGING:-'false'} = false || set -o xtrace
 if test ${__CONFIG_UNPKG:-'false'} = 'false'
 then
     __CONFIG_UNPKG='loaded'
+
+    # Bail out on unset variables.
+    set -o nounset
+
+    # Centralized toggle for tracing.
+    test ${DEBUGGING:-'false'} = false || set -o xtrace
 
     # Changing ROOT is discouraged, but may be required in a restricted environment
     # where / is not writable by the current user (or is ephemeral). If you change

@@ -1,6 +1,13 @@
 
 # -*- mode: shell-script -*-
 
+ROOT=${ROOT:-''}
+PACKAGE_ROOT=${PACKAGE_ROOT:-${ROOT}/package}
+UNPKG=${UNPKG:-${PACKAGE_ROOT}/unpkg}
+CONFIG=${CONFIG:-${UNPKG}/config}
+
+. ${CONFIG}/package
+
 _is_offline() {
     test ${OFFLINE:-'false'} != false
 }

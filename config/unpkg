@@ -11,29 +11,29 @@ test ${DEBUGGING:-'false'} = false || set -o xtrace
 # unpkg Internal Configuration #
 ################################
 
-# Changing ROOT is discouraged, but may be required in a restricted environment
-# where / is not writable by the current user (or is ephemeral). If you change
-# this, it is not reasonable to expect binary packages to function correctly.
-# You should build them from source, in that case.
-ROOT=${ROOT:-''}
+if test ${__CONFIG_UNPKG:-'false'} = 'false'
+then
+    __CONFIG_UNPKG='loaded'
 
-# All packages are installed here
-PACKAGE_ROOT=${ROOT}/package
+    # Changing ROOT is discouraged, but may be required in a restricted environment
+    # where / is not writable by the current user (or is ephemeral). If you change
+    # this, it is not reasonable to expect binary packages to function correctly.
+    # You should build them from source, in that case.
+    ROOT=${ROOT:-''}
 
-# All source is fetched here
-SOURCE_ROOT=${ROOT}/source
+    # All packages are installed here
+    PACKAGE_ROOT=${ROOT}/package
 
-# All commands from packages are linked here
-COMMAND_ROOT=${ROOT}/command
+    # All source is fetched here
+    SOURCE_ROOT=${ROOT}/source
 
-UNPKG=${UNPKG:-${PACKAGE_ROOT}/unpkg}
-CATALOG=${PACKAGES:-${UNPKG}/catalog}
-CONFIG=${CONFIG:-${UNPKG}/config}
-INCLUDE=${INCLUDE:-${UNPKG}/include}
-PATCHES=${PATCHES:-${UNPKG}/patches}
-TOOL=${TOOL:-${UNPKG}/tool}
+    # All commands from packages are linked here
+    COMMAND_ROOT=${ROOT}/command
 
-. ${CONFIG}/path
-. ${CONFIG}/commands
-. ${CONFIG}/toolchain
-. ${CONFIG}/make
+    UNPKG=${UNPKG:-${PACKAGE_ROOT}/unpkg}
+    CATALOG=${PACKAGES:-${UNPKG}/catalog}
+    CONFIG=${CONFIG:-${UNPKG}/config}
+    INCLUDE=${INCLUDE:-${UNPKG}/include}
+    PATCHES=${PATCHES:-${UNPKG}/patches}
+    TOOL=${TOOL:-${UNPKG}/tool}
+fi

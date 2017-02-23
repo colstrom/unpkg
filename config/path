@@ -19,7 +19,7 @@ then
     PATH=${COMMAND_ROOT}
 
     # When this can be set... <3
-    if ${ENDGAME:-'false'} = 'false'
+    if test ${ENDGAME:-'false'} = 'false'
     then
 
         # Instead we have to do things like this... </3

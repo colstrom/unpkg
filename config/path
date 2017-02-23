@@ -1,6 +1,8 @@
 
 # -*- mode: shell-script -*-
 
+. ${CONFIG}/unpkg
+
 ######################
 # Path Configuration #
 ######################

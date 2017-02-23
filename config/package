@@ -2,10 +2,6 @@
 # -*- mode: shell-script -*-
 
 . ${CONFIG}/unpkg
-. ${CONFIG}/path
-. ${CONFIG}/commands
-. ${CONFIG}/toolchain
-. ${CONFIG}/make
 
 #########################
 # Package Configuration #
@@ -88,3 +84,9 @@ MANUAL_DIR=${MANUAL_DIR:-${PACKAGE}/manual}
 # be, according to the FHS (if you ignore the part where it says using "lib" for
 # this purpose is acceptable, as long as you don't do both).
 TOOL_DIR=${TOOL_DIR:-${PACKAGE}/tool}
+
+. ${CONFIG}/path
+. ${CONFIG}/commands
+. ${CONFIG}/toolchain
+. ${CONFIG}/make
+

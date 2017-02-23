@@ -5,7 +5,7 @@ VERSION=${VERSION:-'1.7.5'}
 TAG=${TAG:-v${VERSION}}
 ORIGIN_PATH=${ORIGIN_PATH='lz4/lz4'}
 
-. /package/unpkg/include/common
+. ${INCLUDE}/functions
 
 _build() {
     _clean && _make -C lib && _make -C programs

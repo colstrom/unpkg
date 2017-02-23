@@ -119,8 +119,9 @@ export PATH
 #####################
 
 CC=$(command -v gcc || command -v cc)
-MAKE=$(command -v gmake || command -v make)
 INSTALL=$(command -v ginstall || command -v install)
+MAKE=$(command -v gmake || command -v make)
+PATCH=$(command -v gpatch || command -v patch)
 STRIP=$(command -v gstrip || command -v strip)
 
 # This one is particularly delicate, as "awk" may refer to any one of the

@@ -82,7 +82,7 @@ _success() {
     cat <<-EOF>&2
 success
 
-unpkg is initialized. You should add /command to your path.
+unpkg is initialized. You should add ${COMMAND_ROOT} to your path.
 
 UNPKG_USER was set to "${UNPKG_USER}", so everything is owned by that user, and
 all packaging operations are expected to be performed by that user. If this is

@@ -4,10 +4,12 @@ set -o nounset
 test ${DEBUGGING:-'false'} = 'false' || set -o xtrace
 
 UNPKG_USER=${UNPKG_USER:-'root'}
+UID=${UID:-$(id -u)}
+
 ROOT=${ROOT:-''}
-PACKAGE_ROOT=${PACKAGE_ROOT:-${ROOT}/package}
-SOURCE_ROOT=${SOURCE_ROOT:-${ROOT}/source}
-COMMAND_ROOT=${COMMAND_ROOT:-${ROOT}/command}
+PACKAGE_ROOT=${ROOT}/package
+SOURCE_ROOT=${ROOT}/source
+COMMAND_ROOT=${ROOT}/command
 
 ORIGIN_PREFIX=${ORIGIN_PREFIX:-'https://'}
 ORIGIN_HOST=${ORIGIN_HOST:-'github.com'}
@@ -21,9 +23,7 @@ TRUNK=${TRUNK:-'develop'}
 VERSION=${VERSION:-${TRUNK}}
 TAG=${TAG:-${VERSION}}
 
-PACKAGE=${PACKAGE_ROOT}/${NAME}--${VERSION}
-
-PATH=/command:/package/git/command:/package/gnu-make/command:/package/gcc/command:${PATH}
+PATH=${COMMAND_ROOT}:${PACKAGE_ROOT}/git:${PACKAGE_ROOT}/gnu-make/command:${PACKAGE_ROOT}/gcc/command:${PATH}
 export PATH
 
 GIT=${GIT:-$(command -v git)}
@@ -78,6 +78,38 @@ EOF
     fi
 }
 
+_success() {
+    cat <<-EOF>&2
+success
+
+unpkg is initialized. You should add /command to your path.
+
+UNPKG_USER was set to "${UNPKG_USER}", so everything is owned by that user, and
+all packaging operations are expected to be performed by that user. If this is
+not what you want, set UNPKG_USER to something else, and run this tool again.
+
+EOF
+    exit
+}
+
+_failure() {
+    cat <<-EOF>&2
+failure
+
+something went wrong. It would be nice to tell you more than that, but if we're
+in this function, we've passed all the spots where errors would be handled
+better. Sorry?
+
+If you set DEBUGGING to a non-false value and run this again, you might get some
+insight into what went wrong. If that doesn't help, post the DEBUGGING output to
+an issue here:
+
+   https://github.com/${ORIGIN_PATH}/issues/new
+
+EOF
+    _abort 200
+}
+
 _is_offline() {
     test ${OFFLINE:-'false'} != 'false'
 }
@@ -127,8 +159,7 @@ _sync() {
 }
 
 _link() {
-    _as_unpkg_user ln -sf ${SOURCE} ${PACKAGE}
-    _as_unpkg_user ln -sf ${NAME}--${VERSION} ${PACKAGE_ROOT}/${NAME}
+    _as_unpkg_user ln -sf ${SOURCE} ${PACKAGE_ROOT}/${NAME}
     _as_unpkg_user ln -sf ${PACKAGE_ROOT}/${NAME}/command/* ${COMMAND_ROOT}/
 }
 
@@ -144,8 +175,9 @@ fi
 test -n "${GIT}" || _error_git_not_found
 id "${UNPKG_USER}" >/dev/null 2>/dev/null || _error_user_not_found
 
-_setup_filesystem && _clean && _sync && _link
-
-cat <<-EOF >&2
-success: unpkg initialized
-EOF
+if _setup_filesystem && _clean && _sync && _link
+then
+    _success
+else
+    _failure
+fi

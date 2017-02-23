@@ -7,45 +7,14 @@ set -o nounset
 # Centralized toggle for tracing.
 test ${DEBUGGING:-'false'} = false || set -o xtrace
 
-############
-# Required #
-############
+################################
+# unpkg Internal Configuration #
+################################
 
-# The name of the package to manage
-NAME=${NAME}
-# The version of the package to manage
-VERSION=${VERSION}
-
-# The path on ORIGIN_HOST to use for updates
-# For GitHub, this should be set to user/repo
-ORIGIN_PATH=${ORIGIN_PATH}
-
-#######################
-# Reasonable Defaults #
-#######################
-# These may need to be overridden on a per-package basis.
-
-# The "main" branch of the source repository, for updates.
-TRUNK=${TRUNK:-'master'}
-
-# Change this if the repository tags do not map nicely to versions.
-# A common example is VERSION=1.2.3 vs TAG=v1.2.3
-TAG=${TAG:-${VERSION}}
-
-# Change this if using git://, etc
-ORIGIN_PREFIX=${ORIGIN_PREFIX:-'https://'}
-
-# The host to download updates from.
-# This is meant to accomodate mirrors
-ORIGIN_HOST=${ORIGIN_HOST='github.com'}
-
-# This should be left as-is, unless you have a particularly strange case. While
-# setting this explicitly allows for handling of whatever bizarre origins you
-# require, it is also likely to make it difficult to use alternate sources for
-# that package.
-ORIGIN=${ORIGIN:-"${ORIGIN_PREFIX}${ORIGIN_HOST}/${ORIGIN_PATH}"}
-
-# Changing ROOT is discouraged, but may be required in a restricted environment.
+# Changing ROOT is discouraged, but may be required in a restricted environment
+# where / is not writable by the current user (or is ephemeral). If you change
+# this, it is not reasonable to expect binary packages to function correctly.
+# You should build them from source, in that case.
 ROOT=${ROOT:-''}
 
 # All packages are installed here
@@ -57,10 +26,6 @@ SOURCE_ROOT=${ROOT}/source
 # All commands from packages are linked here
 COMMAND_ROOT=${ROOT}/command
 
-##########################
-# Internal Configuration #
-##########################
-
 UNPKG=${UNPKG:-${PACKAGE_ROOT}/unpkg}
 CATALOG=${PACKAGES:-${UNPKG}/catalog}
 CONFIG=${CONFIG:-${UNPKG}/config}
@@ -68,106 +33,7 @@ INCLUDE=${INCLUDE:-${UNPKG}/include}
 PATCHES=${PATCHES:-${UNPKG}/patches}
 TOOL=${TOOL:-${UNPKG}/tool}
 
-######################
-# Don't change these #
-######################
-
-# Must always refer to the directory the package is to be installed in.
-PACKAGE=${PACKAGE_ROOT}/${NAME}--${VERSION}
-
-# Must always refer to the root of the source repository.
-SOURCE=${SOURCE_ROOT}/${ORIGIN_HOST}/${ORIGIN_PATH}
-
-# BUILD refers to the root of the buildable source. Some packages put it in a
-# "src" directory, for instance. By default, it is whatever SOURCE is, only
-# because this is an intuitive default assumption that tends to be correct more
-# often than not.
-BUILD=${BUILD:-${SOURCE}}
-
-# All commands for a given package can be found here. There is no separation of
-# bin vs sbin, or / vs /usr. These had historic merit, but are questionably
-# relevant today.
-COMMAND_DIR=${COMMAND_DIR:-${PACKAGE}/command}
-
-# Most importantly, all libraries for a given package can be found here. This
-# provides a reliable path for dynamic linking and static libraries.
-LIBRARY_DIR=${LIBRARY_DIR:-${PACKAGE}/library}
-
-# Headers for a given package can be found here. By having a consistent,
-# predictable include path, we reduce system-specific build requirements.
-INCLUDE_DIR=${INCLUDE_DIR:-${PACKAGE}/include}
-
-# Similarly, all manuals for a given package can be found here.
-MANUAL_DIR=${MANUAL_DIR:-${PACKAGE}/manual}
-
-# Internal tools for a given package go here. Things that a program might want
-# in PATH, but a user probably wouldn't. This is what "libexec" is supposed to
-# be, according to the FHS (if you ignore the part where it says using "lib" for
-# this purpose is acceptable, as long as you don't do both).
-TOOL_DIR=${TOOL_DIR:-${PACKAGE}/tool}
-
-###############################
-# Build Environment Variables #
-###############################
-# These settings allow many packages to "just work" without modification to
-# build processes. Changing them is discouraged.
-
-# make sure gcc is in PATH (mostly for illumos distributions)
-if test -d /opt/gcc
-then
-    PATH=${PATH}:/opt/gcc/*/bin
-fi
-
-if test -d /usr/xpg4/bin
-then
-    PATH=/usr/xpg4/bin:${PATH}
-fi
-
-export PATH
-
-#####################
-# Command Selection #
-#####################
-
-CC=$(command -v gcc || command -v cc)
-INSTALL=$(command -v ginstall || command -v install)
-MAKE=$(command -v gmake || command -v make)
-PATCH=$(command -v gpatch || command -v patch)
-STRIP=$(command -v gstrip || command -v strip)
-
-# This one is particularly delicate, as "awk" may refer to any one of the
-# implementations. This particular order yields an awk that supports -v on every
-# platform tested against (see README.org for the list of test platforms).
-AWK=$(command -v mawk || command -v nawk || command -v gawk || command -v awk)
-
-# Using -fPIC generates position independent code. This is primarily for systems
-# with Address Space Layout Randomization (OpenBSD, Solaris, NetBSD, Alpine
-# Linux, etc). Using -Os optimizes for size over speed.
-CFLAGS=${CFLAGS:-'-Os -fPIC'}
-
-# With gcc, -s strips the resulting binaries. With clang, it warns that the
-# option is obsolete and being ignored for compatibility with gcc. -dead_strip
-# could be used there, but would require more than the naive command detection
-# above.
-LDFLAGS=${LDFLAGS:-'-s'}
-
-###############################
-# Build Environment Variables #
-###############################
-# These settings allow many packages to "just work" without modification to
-# build processes. Changing them is discouraged.
-
-PREFIX=${PREFIX:-${PACKAGE}}
-EPREFIX=${EPREFIX:-${PACKAGE}}
-
-BINDIR=${BINDIR:-${COMMAND_DIR}}
-DYNLIBDIR=${DYNLIBDIR:-${LIBRARY_DIR}}
-INCLUDEDIR=${INCLUDEDIR:-${INCLUDE_DIR}}
-LIBDIR=${LIBDIR:-${LIBRARY_DIR}}
-LIBEXECDIR=${LIBEXECDIR:-${TOOL_DIR}}
-MANDIR=${MANDIR:-${MANUAL_DIR}}
-SHEBANGDIR=${SHEBANGDIR:-${COMMAND_DIR}}
-
-SYSDEPDIR=${SYSDEPDIR:-${PACKAGE}/sysdeps}
-
-DESTDIR=${DESTDIR:-'/'}
+. ${CONFIG}/path
+. ${CONFIG}/commands
+. ${CONFIG}/toolchain
+. ${CONFIG}/make

@@ -1,0 +1,32 @@
+
+# -*- mode: shell-script -*-
+
+. ${CONFIG}/toolchain
+
+######################
+# Make Configuration #
+######################
+
+# These should allow many existing build systems and development workflows to
+# "just work" without modification. Changing them is discouraged. They are not
+# exported by default, leaving that up to the packaging scripts.
+
+if ${__CONFIG_MAKE:-'false'} = 'false'
+then
+    __CONFIG_MAKE='loaded'
+
+    PREFIX=${PREFIX:-${PACKAGE}}
+    EPREFIX=${EPREFIX:-${PACKAGE}}
+
+    BINDIR=${BINDIR:-${COMMAND_DIR}}
+    DYNLIBDIR=${DYNLIBDIR:-${LIBRARY_DIR}}
+    INCLUDEDIR=${INCLUDEDIR:-${INCLUDE_DIR}}
+    LIBDIR=${LIBDIR:-${LIBRARY_DIR}}
+    LIBEXECDIR=${LIBEXECDIR:-${TOOL_DIR}}
+    MANDIR=${MANDIR:-${MANUAL_DIR}}
+    SHEBANGDIR=${SHEBANGDIR:-${COMMAND_DIR}}
+
+    SYSDEPDIR=${SYSDEPDIR:-${PACKAGE}/sysdeps}
+
+    DESTDIR=${DESTDIR:-'/'}
+fi

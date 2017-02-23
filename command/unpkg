@@ -29,7 +29,10 @@ _packages() {
 _package() {
     if _packages | grep -q "^${1:-}\$"
     then
-        env CONFIG=${CONFIG} exec ${CATALOG}/${@:-}
+        env \
+            CONFIG=${CONFIG} \
+            INCLUDE=${INCLUDE} \
+            exec ${CATALOG}/${@:-}
     else
         _error_package_not_found "${@:-}"
     fi

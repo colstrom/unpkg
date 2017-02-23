@@ -1,0 +1,58 @@
+
+# -*- mode: shell-script -*-
+
+######################
+# Path Configuration #
+######################
+
+# This file handles platform-specific paths. The list begins with a sensible
+# ranked preference, and gradually descends into desperation and madness. This
+# is a big part of why we can't have nice things.
+
+if test ${__CONFIG_PATH:-'false'} = 'false'
+then
+    __CONFIG_PATH='loaded'
+
+    # Start the unified path provided by unpkg
+    PATH=${COMMAND_ROOT}
+
+    # When this can be set... <3
+    if ${ENDGAME:-'false'} = 'false'
+    then
+
+        # Instead we have to do things like this... </3
+        while read -r path
+        do
+            test -e ${path} && PATH=${PATH}:${path}
+        done <<-END
+/usr/xpg4/bin
+/usr/gnu/bin
+/usr/bin
+/bin
+/usr/sbin
+/sbin
+/usr/local/bin
+/usr/local/sbin
+/opt/local/bin
+/opt/local/libdata/pkg_alternatives/opt/local/bin/
+/usr/pkg/bin
+/usr/ccs/bin
+/usr/sfw/bin
+/usr/ucb
+/usr/gcc/4.9/bin
+/opt/local/gcc49/bin
+/usr/gcc/5/bin
+/opt/local/gcc5/bin
+/opt/gcc-4.8.1/bin
+/opt/gcc/4.8.1/bin
+/opt/gcc-4.4.4/bin
+/opt/gcc/4.4.4/bin
+/opt/gcc-5.1.0/bin
+/opt/gcc/5.1.0/bin
+/usr/gcc/3.4/bin
+/opt/gcc/bin
+END
+    fi
+
+    export PATH
+fi

@@ -1,0 +1,29 @@
+
+# -*- mode: shell-script -*-
+
+. ${CONFIG}/path
+
+#########################
+# Command Configuration #
+#########################
+
+# This file defines preferential load order for commands. This is very important
+# for portability, as different systems may provide equivalent tools under
+# different names.
+
+if test ${__CONFIG_COMMANDS:-'false'} = 'false'
+then
+    __CONFIG_COMMANDS='loaded'
+
+    CC=$(command -v gcc || command -v cc)
+    INSTALL=$(command -v ginstall || command -v install)
+    MAKE=$(command -v gmake || command -v make)
+    PATCH=$(command -v gpatch || command -v patch)
+    STRIP=$(command -v gstrip || command -v strip)
+
+    # This one is particularly delicate, as "awk" may refer to any one of the
+    # implementations. This particular order yields an awk that supports -v on
+    # every known platform.
+    AWK=$(command -v mawk || command -v nawk || command -v gawk || command -v awk)
+
+fi

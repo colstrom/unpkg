@@ -23,9 +23,9 @@ then
     then
 
         # Instead we have to do things like this... </3
-        while read -r path
+        while read -r candidate
         do
-            test -e ${path} && PATH=${PATH}:${path}
+            test -e ${candidate} && PATH=${PATH}:${candidate}
         done <<-END
 /usr/xpg4/bin
 /usr/gnu/bin

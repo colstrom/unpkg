@@ -49,7 +49,7 @@ _sync() {
 }
 
 _configure() {
-    cd ${SOURCE} || exit 111
+    cd ${BUILD} || exit 111
 
     if test -x configure
     then

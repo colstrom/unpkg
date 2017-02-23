@@ -54,7 +54,7 @@
   =${UNPKG_USER}= you can run:
 
   #+BEGIN_SRC shell
-    curl https://raw.githubusercontent.com/colstrom/unpkg/develop/library/unpkg.init | env UNPKG_USER=$(whoami) sh
+    curl https://raw.githubusercontent.com/colstrom/unpkg/develop/tool/unpkg.init | env UNPKG_USER=$(whoami) sh
   #+END_SRC
 
   If that seems like a lot of work, the installer can do that for you, if you
@@ -63,7 +63,7 @@
   #+BEGIN_SRC shell
     # as root
     export UNPKG_LET_ME_RUN_ARBITRARY_CODE_FROM_THE_INTERNET_AS_ROOT=true
-    curl https://raw.githubusercontent.com/colstrom/unpkg/develop/library/unpkg.init | sh
+    curl https://raw.githubusercontent.com/colstrom/unpkg/develop/tool/unpkg.init | sh
   #+END_SRC
 
 * Usage

@@ -89,4 +89,3 @@ TOOL_DIR=${TOOL_DIR:-${PACKAGE}/tool}
 . ${CONFIG}/commands
 . ${CONFIG}/toolchain
 . ${CONFIG}/make
-

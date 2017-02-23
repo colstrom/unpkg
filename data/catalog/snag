@@ -4,7 +4,7 @@ NAME=${NAME:-'snag'}
 VERSION=${VERSION:-'master'}
 ORIGIN_PATH=${ORIGIN_PATH='Tonkpils/snag'}
 
-. /package/unpkg/include/common
+. ${INCLUDE}/functions
 
 _build() {
     go get -u -v github.com/Tonkpils/snag

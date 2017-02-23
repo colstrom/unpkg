@@ -4,16 +4,16 @@ NAME=${NAME:-'b2sum'}
 VERSION=${VERSION:-'master'}
 ORIGIN_PATH=${ORIGIN_PATH='BLAKE2/BLAKE2'}
 
-. /package/unpkg/include/common
+. ${INCLUDE}/functions
 
 _build() {
     _clean && _make -C b2sum NO_OPENMP=1
 }
 
 _install() {
-    mkdir -p "${BINDIR}" "${MANDIR}"
-    tar cf - -C b2sum b2sum | tar xf - -C ${BINDIR}
-    tar cf - -C b2sum b2sum.1 | tar xf - -C ${MANDIR}
+    mkdir -p ${COMMAND_DIR} ${MANUAL_DIR}/man1
+    tar cf - -C b2sum b2sum | tar xf - -C ${COMMAND_DIR}
+    tar cf - -C b2sum b2sum.1 | tar xf - -C ${MANUAL_DIR}/man1
 }
 
 _main ${@:-}

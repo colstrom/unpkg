@@ -15,7 +15,7 @@ if test ${__CONFIG_PATH:-'false'} = 'false'
 then
     __CONFIG_PATH='loaded'
 
-    # Start the unified path provided by unpkg
+    # Start with the unified path provided by unpkg
     PATH=${COMMAND_ROOT}
 
     # When this can be set... <3

@@ -1,0 +1,77 @@
+
+# -*- mode: shell-script -*-
+
+############
+# Required #
+############
+
+# The name of the package to manage
+NAME=${NAME}
+# The version of the package to manage
+VERSION=${VERSION}
+
+# The path on ORIGIN_HOST to use for updates
+# For GitHub, this should be set to user/repo
+ORIGIN_PATH=${ORIGIN_PATH}
+
+#######################
+# Reasonable Defaults #
+#######################
+# These may need to be overridden on a per-package basis.
+
+# The "main" branch of the source repository, for updates.
+TRUNK=${TRUNK:-'master'}
+
+# Change this if the repository tags do not map nicely to versions.
+# A common example is VERSION=1.2.3 vs TAG=v1.2.3
+TAG=${TAG:-${VERSION}}
+
+# Change this if using git://, etc
+ORIGIN_PREFIX=${ORIGIN_PREFIX:-'https://'}
+
+# The host to download updates from. This is meant to accomodate mirrors.
+ORIGIN_HOST=${ORIGIN_HOST='github.com'}
+
+# This should be left as-is, unless you have a particularly strange case. While
+# setting this explicitly allows for handling of whatever bizarre origins you
+# require, it is also likely to make it difficult to use alternate sources for
+# that package.
+ORIGIN=${ORIGIN:-"${ORIGIN_PREFIX}${ORIGIN_HOST}/${ORIGIN_PATH}"}
+
+######################
+# Don't change these #
+######################
+
+# Must always refer to the directory the package is to be installed in.
+PACKAGE=${PACKAGE_ROOT}/${NAME}--${VERSION}
+
+# Must always refer to the root of the source repository.
+SOURCE=${SOURCE_ROOT}/${ORIGIN_HOST}/${ORIGIN_PATH}
+
+# BUILD refers to the root of the buildable source. Some packages put it in a
+# "src" directory, for instance. By default, it is whatever SOURCE is, only
+# because this is an intuitive default assumption that tends to be correct more
+# often than not.
+BUILD=${BUILD:-${SOURCE}}
+
+# All commands for a given package can be found here. There is no separation of
+# bin vs sbin, or / vs /usr. These had historic merit, but are questionably
+# relevant today.
+COMMAND_DIR=${COMMAND_DIR:-${PACKAGE}/command}
+
+# Most importantly, all libraries for a given package can be found here. This
+# provides a reliable path for dynamic linking and static libraries.
+LIBRARY_DIR=${LIBRARY_DIR:-${PACKAGE}/library}
+
+# Headers for a given package can be found here. By having a consistent,
+# predictable include path, we reduce system-specific build requirements.
+INCLUDE_DIR=${INCLUDE_DIR:-${PACKAGE}/include}
+
+# Similarly, all manuals for a given package can be found here.
+MANUAL_DIR=${MANUAL_DIR:-${PACKAGE}/manual}
+
+# Internal tools for a given package go here. Things that a program might want
+# in PATH, but a user probably wouldn't. This is what "libexec" is supposed to
+# be, according to the FHS (if you ignore the part where it says using "lib" for
+# this purpose is acceptable, as long as you don't do both).
+TOOL_DIR=${TOOL_DIR:-${PACKAGE}/tool}

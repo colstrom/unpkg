@@ -4,20 +4,14 @@ NAME=${NAME:-'heirloom-sh'}
 VERSION=${VERSION:-'master'}
 ORIGIN_PATH=${ORIGIN_PATH='eunuchs/heirloom-project'}
 
-. /package/unpkg/include/common
-
-if test -d /usr/xpg4/bin
-then
-    PATH=/usr/xpg4/bin:${PATH}
-    export PATH
-fi
+. ${INCLUDE}/functions
 
 _configure() {
     test -n "${AWK}" || exit 111
 
     cd ${SOURCE}/heirloom/heirloom-sh || exit 111
 
-    ${AWK} -f /package/unpkg/data/support/heirloom-sh/configure.awk \
+    ${AWK} -f ${UNPKG}/data/support/heirloom-sh/configure.awk \
         -F = \
         -v BINDIR=${BINDIR} \
         -v MANDIR=${MANDIR} \

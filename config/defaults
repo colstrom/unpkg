@@ -57,6 +57,16 @@ SOURCE_ROOT=${ROOT}/source
 # All commands from packages are linked here
 COMMAND_ROOT=${ROOT}/command
 
+##########################
+# Internal Configuration #
+##########################
+
+UNPKG=${UNPKG:-${PACKAGE_ROOT}/unpkg}
+CATALOG=${PACKAGES:-${UNPKG}/catalog}
+CONFIG=${CONFIG:-${UNPKG}/config}
+PATCHES=${PATCHES:-${UNPKG}/patches}
+TOOL=${TOOL:-${UNPKG}/tool}
+
 ######################
 # Don't change these #
 ######################

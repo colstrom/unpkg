@@ -1,7 +1,7 @@
 
 # -*- mode: shell-script -*-
 
-. ${CONFIG}/toolchain
+. ${CONFIG}/unpkg
 
 ######################
 # Make Configuration #

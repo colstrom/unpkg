@@ -1,4 +1,0 @@
-#!/bin/sh
-
-. /package/unpkg/include/environment
-. /package/unpkg/include/functions

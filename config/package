@@ -1,6 +1,19 @@
 
 # -*- mode: shell-script -*-
 
+. ${CONFIG}/unpkg
+. ${CONFIG}/path
+. ${CONFIG}/commands
+. ${CONFIG}/toolchain
+. ${CONFIG}/make
+
+#########################
+# Package Configuration #
+#########################
+
+# This file defines the defaults for all packages. This should be sourced by all
+# package scripts.
+
 ############
 # Required #
 ############

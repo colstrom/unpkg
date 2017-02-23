@@ -7,9 +7,9 @@ TAG=${TAG:-go${VERSION}}
 ORIGIN_HOST=${ORIGIN_HOST='go.googlesource.com'}
 ORIGIN_PATH=${ORIGIN_PATH='go'}
 
-. /package/unpkg/include/common
+. ${INCLUDE}/functions
 
-PATH=/package/go/command:${PATH}
+PATH=${PACKAGE_ROOT}/go/command:${PATH}
 
 _bootstrap() {
     GO=${GO:-$(command -v go)}

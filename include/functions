@@ -196,9 +196,9 @@ unpkg 0.0.0.develop
 usage: unpkg ${NAME} [command]
 
 Commands:
-  A|activate      | activates ${VERSION} as providing ${NAME}
   B|bootstrap     | bootstraps ${NAME} if required (may be a no-op)
   I|import        | imports ${NAME} to the system
+  a|activate      | activates ${VERSION} as providing ${NAME}
   b|build         | builds ${NAME}
   c|clean         | discards all modifications and untracked files for ${NAME}
   d|deinstall     | deinstalls ${NAME}
@@ -216,15 +216,16 @@ EOF
 _main() {
     case ${1:-'all'} in
         -h|--help) _help;;
-        c|clean) _clean;;
-        s|sync) _sync;;
         B|bootstrap) _bootstrap;;
+        I|import) _import;;
+        a|activate) _activate;;
         b|build) _build;;
+        c|clean) _clean;;
         d|deinstall) _deinstall;;
         i|install) _install;;
-        r|reinstall) _reinstall;;
         p|patch) _patch;;
-        a|activate) _activate;;
+        r|reinstall) _reinstall;;
+        s|sync) _sync;;
         X|experimental) shift && eval ${@:-};;
         A|all) _all;;
         *)

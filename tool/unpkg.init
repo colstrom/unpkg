@@ -4,7 +4,6 @@ set -o nounset
 test ${DEBUGGING:-'false'} = 'false' || set -o xtrace
 
 UNPKG_USER=${UNPKG_USER:-'root'}
-UID=${UID:-$(id -u)}
 
 ROOT=${ROOT:-''}
 PACKAGE_ROOT=${ROOT}/package

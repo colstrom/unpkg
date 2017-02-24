@@ -84,16 +84,10 @@ _configure_options() {
 _configure() {
     cd ${BUILD} || exit 111
 
-    if test -x configure
+    if _supports_configure
     then
         ./configure \
-            --prefix="${PREFIX}" \
-            --bindir="${BINDIR}" \
-            --libdir="${LIBDIR}" \
-            --includedir="${INCLUDEDIR}" \
-            --mandir="${MANDIR}" \
-            --sysdepdir="${SYSDEPDIR}" \
-            --dynlibdir="${DYNLIBDIR}" \
+            $(_configure_options) \
             CFLAGS="${CFLAGS}" \
             LDFLAGS="${LDFLAGS}" \
             ${@:-}

@@ -86,11 +86,7 @@ _configure() {
 
     if _supports_configure
     then
-        ./configure \
-            $(_configure_options) \
-            CFLAGS="${CFLAGS}" \
-            LDFLAGS="${LDFLAGS}" \
-            ${@:-}
+        ./configure $(_configure_options) ${@:-}
     else
         true
     fi
@@ -98,17 +94,8 @@ _configure() {
 
 _with_build_environment() {
     env \
-        PREFIX="${PREFIX}" \
-        BINDIR="${BINDIR}" \
-        LIBDIR="${LIBDIR}" \
-        INCLUDEDIR="${INCLUDEDIR}" \
-        MANDIR="${MANDIR}" \
-        DYNLIBDIR="${DYNLIBDIR}" \
-        SYSDEPDIR="${SYSDEPDIR}" \
-        CFLAGS="${CFLAGS}" \
-        LDFLAGS="${LDFLAGS}" \
-        CC="${CC}" \
-        INSTALL="${INSTALL}" \
+        CC=${CC} \
+        INSTALL=${INSTALL} \
         ${@:-'false'}
 }
 

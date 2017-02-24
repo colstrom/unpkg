@@ -11,7 +11,7 @@ _configure() {
 
     cd ${SOURCE}/heirloom/heirloom-sh || exit 111
 
-    ${AWK} -f ${UNPKG}/data/support/heirloom-sh/configure.awk \
+    ${AWK} -f ${UNPKG}/support/heirloom-sh/configure.awk \
         -F = \
         -v BINDIR=${BINDIR} \
         -v MANDIR=${MANDIR} \
@@ -19,6 +19,10 @@ _configure() {
         -v STRIP=${STRIP} \
         -v CFLAGS="${CFLAGS}" \
         makefile > makefile.fixed && mv makefile.fixed makefile
+}
+
+_import() {
+    true
 }
 
 _main ${@:-}

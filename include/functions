@@ -186,7 +186,7 @@ _bootstrap() {
 }
 
 _all() {
-    _sync && _bootstrap && _build && _reinstall && _activate
+    _sync && _bootstrap && _build && _reinstall && _activate && _import
 }
 
 _help() {
@@ -209,7 +209,7 @@ Commands:
   X|experimental  | probably breaks things
 
 If no command is given, the following commands will be run:
-  sync && bootstrap && build && reinstall && enable
+  sync && bootstrap && build && reinstall && activate && import
 EOF
 }
 

@@ -65,6 +65,13 @@ _supports_configure() {
     test -x ${BUILD}/configure
 }
 
+_configure_help() {
+    if _supports_configure
+    then
+        cd ${BUILD} && ./configure --help
+    fi
+}
+
 _configure() {
     cd ${BUILD} || exit 111
 

@@ -5,8 +5,7 @@
 # Toolchain Configuration #
 ###########################
 
-# This file sets toolchain-specific environment variables. These are *not*
-# exported by default, leaving that up to the packaging scripts.
+# This file sets toolchain-specific environment variables.
 
 if test ${__CONFIG_TOOLCHAIN:-'false'} = 'false'
 then
@@ -15,11 +14,11 @@ then
     # Using -fPIC generates position independent code. This is primarily for
     # systems with Address Space Layout Randomization (OpenBSD, Solaris, NetBSD,
     # Alpine Linux, etc). Using -Os optimizes for size over speed.
-    CFLAGS=${CFLAGS:-'-Os -fPIC'}
+    export CFLAGS=${CFLAGS:-'-Os -fPIC'}
 
     # With gcc, -s strips the resulting binaries. With clang, it warns that the
     # option is obsolete and being ignored for compatibility with gcc.
     # -dead_strip could be used there, but would require more than the naive
     # command detection currently in use.
-    LDFLAGS=${LDFLAGS:-'-s'}
+    export LDFLAGS=${LDFLAGS:-'-s'}
 fi

@@ -1,3 +1,5 @@
+#!/command/mawk
+
 BEGIN { OFS = "=" }
 $1 == "--bindir" { print $0,BINDIR }
 $1 == "--datadir" { print $0,DATADIR }

@@ -1,7 +1,8 @@
+#!/command/mawk
 
-BEGIN { print "BEGIN { OFS = \"=\" }" }
-
-# ./configure --help | awk '$1 ~ /^--/ { print $1 }' | awk -F = '{ print $1 }' | tr -d '['
+BEGIN {
+    print "#!/command/mawk" "\n\n" "BEGIN { OFS = \"=\" }"
+}
 
 $1 !~ /dir$/ { next }
 { OPTION = $0 }

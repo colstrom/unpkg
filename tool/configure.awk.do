@@ -2,5 +2,5 @@
 
 unpkg | while read -r package
 do
-    unpkg ${package} X _extract_options_from_configure_help
-done | sort -u | awk -f tool/.configure.awk
+    unpkg ${package} X _configure_help | mawk -f tool/extract-configure-options.awk
+done | sort -u | mawk -f tool/.configure.awk

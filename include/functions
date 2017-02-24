@@ -173,8 +173,8 @@ _reinstall() {
 }
 
 _import_commands() {
-    test -e /command || mkdir -p /command
-    find ${PACKAGE_ROOT}/${NAME}/command -exec ln -sf '{}' /command/ \;
+    test -e ${COMMAND_ROOT} || mkdir -p ${COMMAND_ROOT} || exit 111
+    find ${PACKAGE_ROOT}/${NAME}/command -exec ln -sf '{}' ${COMMAND_ROOT} \;
 }
 
 _import() {

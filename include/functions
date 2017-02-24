@@ -61,6 +61,10 @@ _awk() {
     ${AWK} "${@:-}"
 }
 
+_supports_configure() {
+    test -x ${BUILD}/configure
+}
+
 _configure() {
     cd ${BUILD} || exit 111
 

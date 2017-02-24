@@ -72,6 +72,15 @@ _configure_help() {
     fi
 }
 
+_configure_options() {
+    test -n "${AWK}" || exit 111
+
+    _configure_help \
+        | _awk -f ${TOOL}/extract-configure-options.awk \
+        | _awk $(env | ${AWK} '!/[[:space:]]/ { print "-v " $0 }') -f ${TOOL}/configure.awk \
+        | _awk '$1 !~ /=$/'
+}
+
 _configure() {
     cd ${BUILD} || exit 111
 

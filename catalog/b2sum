@@ -4,6 +4,8 @@ NAME=${NAME:-'b2sum'}
 VERSION=${VERSION:-'master'}
 ORIGIN_PATH=${ORIGIN_PATH='BLAKE2/BLAKE2'}
 
+CFLAGS='-Os -fPIC -msse2'
+
 . ${INCLUDE}/functions
 
 _build() {

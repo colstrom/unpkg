@@ -55,6 +55,12 @@ _sync() {
     _source_is_available && _git checkout ${TAG}
 }
 
+_awk() {
+    test -n "${AWK}" || exit 111
+
+    ${AWK} "${@:-}"
+}
+
 _configure() {
     cd ${BUILD} || exit 111
 

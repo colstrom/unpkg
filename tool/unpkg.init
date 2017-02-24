@@ -27,6 +27,7 @@ PATH=${COMMAND_ROOT}:${PACKAGE_ROOT}/git:${PACKAGE_ROOT}/gnu-make/command:${PACK
 export PATH
 
 GIT=${GIT:-$(command -v git)}
+SU=${SU:-$(command -v su)}
 
 _abort() {
     exit ${1:-111}

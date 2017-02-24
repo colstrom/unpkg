@@ -126,9 +126,7 @@ _make() {
 }
 
 _patch() {
-    PATCH=/package/unpkg/data/patches/${NAME}
-
-    for patch in ${PATCH} ${PATCH}.$(uname -s)
+    for patch in ${PATCHES}/${NAME} ${PATCHES}/${NAME}.$(uname -s)
     do
         if test -f ${patch}
         then

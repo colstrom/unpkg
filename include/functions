@@ -143,7 +143,7 @@ _patch() {
     do
         if test -f ${patch}
         then
-            git apply ${patch} || exit 111
+            git apply ${patch} || _abort
         fi
     done
 }

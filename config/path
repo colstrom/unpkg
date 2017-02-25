@@ -29,17 +29,17 @@ then
         done <<-END
 /usr/xpg4/bin
 /usr/gnu/bin
-/usr/bin
-/bin
-/usr/sbin
-/sbin
 /usr/local/bin
 /usr/local/sbin
 /opt/local/bin
 /opt/local/libdata/pkg_alternatives/opt/local/bin/
 /usr/pkg/bin
-/usr/ccs/bin
 /usr/sfw/bin
+/usr/bin
+/bin
+/usr/sbin
+/sbin
+/usr/ccs/bin
 /usr/ucb
 /usr/gcc/4.9/bin
 /opt/local/gcc49/bin

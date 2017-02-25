@@ -99,7 +99,7 @@ _configure_help() {
 }
 
 _configure_options() {
-    test -n "${AWK}" || exit 111
+    test -n "${AWK}" || _abort
 
     _configure_help \
         | _awk -f ${TOOL}/extract-configure-options.awk \

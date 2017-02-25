@@ -109,6 +109,7 @@ _configure_options() {
 
 _configure() {
     cd ${BUILD} || _abort
+    _autogen_configure || _abort
 
     if _supports_configure
     then

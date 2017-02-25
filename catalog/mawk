@@ -7,7 +7,7 @@ ORIGIN_PATH=${ORIGIN_PATH:-'ploxiln/mawk-2'}
 . ${INCLUDE}/functions
 
 _configure() {
-    cd ${SOURCE} || exit 111
+    cd ${SOURCE} || _abort
 
     if test -x configure
     then

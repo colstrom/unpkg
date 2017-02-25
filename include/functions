@@ -126,7 +126,7 @@ _with_build_environment() {
 }
 
 _make() {
-    test -n "${MAKE}" || exit 111
+    test -n "${MAKE}" || _abort
 
     # If only ${@:-} was portable...
 

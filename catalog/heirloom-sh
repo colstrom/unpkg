@@ -7,9 +7,9 @@ ORIGIN_PATH=${ORIGIN_PATH='eunuchs/heirloom-project'}
 . ${INCLUDE}/functions
 
 _configure() {
-    test -n "${AWK}" || exit 111
+    test -n "${AWK}" || _abort
 
-    cd ${SOURCE}/heirloom/heirloom-sh || exit 111
+    cd ${SOURCE}/heirloom/heirloom-sh || _abort
 
     ${AWK} -f ${UNPKG}/support/heirloom-sh/configure.awk \
         -F = \

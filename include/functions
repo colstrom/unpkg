@@ -8,6 +8,10 @@ CONFIG=${CONFIG:-${UNPKG}/config}
 
 . ${CONFIG}/package
 
+_abort() {
+    exit ${1:-111}
+}
+
 _is_offline() {
     test ${OFFLINE:-'false'} != false
 }

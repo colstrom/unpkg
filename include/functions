@@ -60,9 +60,31 @@ _sync() {
 }
 
 _awk() {
-    test -n "${AWK}" || exit 111
+    test -n "${AWK}" || _abort
 
     ${AWK} "${@:-}"
+}
+
+_supports_autogen() {
+    test -x ${BUILD}/autogen.sh
+}
+
+_supports_autoconf() {
+    test -e ${BUILD}/configure.ac
+}
+
+_autogen_configure() {
+    if _supports_autoconf
+    then
+        if _supports_autogen
+        then
+            ./autogen.sh
+        else
+            autoreconf -i
+        fi
+    else
+        true
+    fi
 }
 
 _supports_configure() {

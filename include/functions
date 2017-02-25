@@ -108,7 +108,7 @@ _configure_options() {
 }
 
 _configure() {
-    cd ${BUILD} || exit 111
+    cd ${BUILD} || _abort
 
     if _supports_configure
     then

@@ -38,7 +38,7 @@ _fetch_source() {
 
 # Workaround for archaic versions of git without -C
 _git() {
-    cd ${SOURCE} || exit 111
+    cd ${SOURCE} || _abort
     git ${@:-}
 }
 

@@ -18,7 +18,7 @@ _bootstrap() {
 }
 
 _build() {
-    cd ${SOURCE}/src || exit 111
+    cd ${SOURCE}/src || _abort
 
     GO=${GO:-$(command -v go)}
 
@@ -36,9 +36,9 @@ _build() {
 }
 
 _install() {
-    mkdir -p ${PACKAGE} || exit 111
-    tar cf - -C ${SOURCE} . | tar xf - -C ${PACKAGE} || exit 111
-    mkdir -p ${BINDIR} || exit 111
+    mkdir -p ${PACKAGE} || _abort
+    tar cf - -C ${SOURCE} . | tar xf - -C ${PACKAGE} || _abort
+    mkdir -p ${BINDIR} || _abort
     ln -s ${PACKAGE}/bin/go ${BINDIR}/go
     ln -s ${PACKAGE}/bin/gofmt ${BINDIR}/gofmt
 }

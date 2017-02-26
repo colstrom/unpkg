@@ -76,6 +76,11 @@ LIBRARY_DIR=${LIBRARY_DIR:-${PACKAGE}/library}
 # predictable include path, we reduce system-specific build requirements.
 INCLUDE_DIR=${INCLUDE_DIR:-${PACKAGE}/include}
 
+# Configuration for a given package can be found here. This is effectively a
+# package-local /etc, which becomes important when multiple versions of a
+# package can be installed on the same system.
+CONFIG_DIR=${CONFIG_DIR:-${PACKAGE}/config}
+
 # Similarly, all manuals for a given package can be found here.
 MANUAL_DIR=${MANUAL_DIR:-${PACKAGE}/manual}
 

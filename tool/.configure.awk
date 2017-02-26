@@ -4,6 +4,7 @@ BEGIN {
     print "#!/command/mawk" "\n\n" "BEGIN { OFS = \"=\" }"
 }
 
+$1 ~ /^--with-/ { next }
 $1 !~ /dir$/ { next }
 { OPTION = $0 }
 { gsub("-","",OPTION) }

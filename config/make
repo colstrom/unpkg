@@ -20,6 +20,7 @@ then
         BINDIR=${BINDIR:-${COMMAND_DIR}} \
         DATADIR=${DATADIR:-${PACKAGE}/data} \
         DOCDIR=${DOCDIR:-${PACKAGE}/doc} \
+        DATAROOTDIR=${DATAROOTDIR:-${PACKAGE}/data} \
         DYNLIBDIR=${DYNLIBDIR:-${LIBRARY_DIR}} \
         INCLUDEDIR=${INCLUDEDIR:-${INCLUDE_DIR}} \
         LIBDIR=${LIBDIR:-${LIBRARY_DIR}} \

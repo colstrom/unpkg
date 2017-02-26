@@ -24,6 +24,7 @@ then
         LIBEXECDIR=${LIBEXECDIR:-${TOOL_DIR}} \
         MANDIR=${MANDIR:-${MANUAL_DIR}} \
         SHEBANGDIR=${SHEBANGDIR:-${COMMAND_DIR}} \
+        SYSCONFDIR=${SYSCONFDIR:-${CONFIG_DIR}} \
         SYSDEPDIR=${SYSDEPDIR:-${PACKAGE}/sysdeps} \
         DESTDIR=${DESTDIR:-'/'}
 fi

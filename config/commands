@@ -17,6 +17,8 @@ then
 
     CC=$(command -v gcc || command -v cc)
     INSTALL=$(command -v ginstall || command -v install)
+    LIBTOOL=$(command -v glibtool || command -v libtool)
+    LIBTOOLIZE=$(command -v glibtoolize || command -v libtoolize)
     M4=$(command -v gm4 || command -v m4)
     MAKE=$(command -v gmake || command -v make)
     PATCH=$(command -v gpatch || command -v patch)

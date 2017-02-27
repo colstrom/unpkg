@@ -23,3 +23,4 @@ $1 == "--sharedstatedir" { print $0,SHAREDSTATEDIR }
 $1 == "--srcdir" { print $0,SRCDIR }
 $1 == "--sysconfdir" { print $0,SYSCONFDIR }
 $1 == "--sysdepdir" { print $0,SYSDEPDIR }
+$1 == "--xdgdatadir" { print $0,XDGDATADIR }

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+NAME=${NAME:-'libressl'}
+VERSION=${VERSION:-'2.5.1'}
+TAG=${TAG:-v${VERSION}}
+ORIGIN_PATH=${ORIGIN_PATH='libressl-portable/portable'}
+
+. ${INCLUDE}/functions
+
+_patch() {
+    cat <<-EOF>${BUILD}/OPENBSD_BRANCH
+libressl-${TAG}
+EOF
+}
+
+_main ${@:-}

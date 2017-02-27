@@ -1,0 +1,20 @@
+#!/bin/sh
+
+NAME=${NAME:-'zlib'}
+VERSION=${VERSION:-'1.2.11'}
+TAG=${TAG:-v${VERSION}}
+ORIGIN_PATH=${ORIGIN_PATH='madler/zlib'}
+
+. ${INCLUDE}/functions
+
+# zlib uses a compact --help output, which tool/configure.awk fails to process.
+_configure() {
+    ./configure \
+        --eprefix=${PACKAGE} \
+        --includedir=${INCLUDE_DIR} \
+        --libdir=${LIBRARY_DIR} \
+        --prefix=${PACKAGE} \
+        --sharedlibdir=${LIBRARY_DIR}
+}
+
+_main ${@:-}

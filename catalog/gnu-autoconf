@@ -1,6 +1,6 @@
 #!/bin/sh
 
-NAME=${NAME:-'autoconf'}
+NAME=${NAME:-'gnu-autoconf'}
 VERSION=${VERSION:-'2.69'}
 TAG=${TAG:-v${VERSION}}
 

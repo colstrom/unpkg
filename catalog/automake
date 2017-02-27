@@ -1,0 +1,13 @@
+#!/bin/sh
+
+NAME=${NAME:-'automake'}
+VERSION=${VERSION:-'1.15'}
+TAG=${TAG:-v${VERSION}}
+
+ORIGIN_PREFIX='git://'
+ORIGIN_HOST=${ORIGIN_HOST:-'git.savannah.gnu.org'}
+ORIGIN_PATH=${ORIGIN_PATH:-'automake.git'}
+
+. ${INCLUDE}/functions
+
+_main ${@:-}

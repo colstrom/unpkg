@@ -1,6 +1,6 @@
 #!/bin/sh
 
-NAME=${NAME:-'automake'}
+NAME=${NAME:-'gnu-automake'}
 VERSION=${VERSION:-'1.15'}
 TAG=${TAG:-v${VERSION}}
 

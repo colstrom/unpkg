@@ -31,5 +31,6 @@ then
         SHEBANGDIR=${SHEBANGDIR:-${COMMAND_DIR}} \
         SYSCONFDIR=${SYSCONFDIR:-${CONFIG_DIR}} \
         SYSDEPDIR=${SYSDEPDIR:-${PACKAGE}/sysdeps} \
+        XDGDATADIR=${XDGDATADIR:-${PACKAGE}/data} \
         DESTDIR=${DESTDIR:-'/'}
 fi

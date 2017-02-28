@@ -53,6 +53,7 @@ then
 /opt/gcc/5.1.0/bin
 /usr/gcc/3.4/bin
 /opt/gcc/bin
+/usr/local/opt/gettext/bin
 END
     fi
 

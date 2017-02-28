@@ -21,6 +21,7 @@ _configure() {
         --with-dynlib=/package/s6-dns/library \
         --with-dynlib=/package/s6/library \
         --with-dynlib=/package/skalibs/library \
+        --with-include=/package/execline/include \
         --with-include=/package/libressl/include \
         --with-include=/package/s6-dns/include \
         --with-include=/package/s6/include \

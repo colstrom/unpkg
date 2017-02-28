@@ -24,6 +24,7 @@ _configure() {
         --with-include=/package/libressl/include \
         --with-include=/package/s6-dns/include \
         --with-include=/package/s6/include \
+        --with-include=/package/skalibs/include \
         --with-lib=/package/libressl/library \
         --with-lib=/package/s6-dns/library \
         --with-lib=/package/s6/library \

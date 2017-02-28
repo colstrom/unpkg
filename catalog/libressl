@@ -8,6 +8,14 @@ ORIGIN_PATH=${ORIGIN_PATH='libressl-portable/portable'}
 . ${INCLUDE}/functions
 
 _patch() {
+    for patch in ${PATCHES}/${NAME} ${PATCHES}/${NAME}.$(uname -s)
+    do
+        if test -f ${patch}
+        then
+            git apply ${patch} || _abort
+        fi
+    done
+
     cat <<-EOF>${BUILD}/OPENBSD_BRANCH
 libressl-${TAG}
 EOF

@@ -140,9 +140,9 @@ _make() {
 
     if test ${#} = 0
     then
-        _with_build_environment ${MAKE}
+        _with_build_environment ${MAKE} -j ${MAKE_JOBS}
     else
-        _with_build_environment ${MAKE} ${@}
+        _with_build_environment ${MAKE} -j ${MAKE_JOBS} ${@}
     fi
 }
 

@@ -43,9 +43,16 @@ _git() {
 }
 
 _clean() {
+    cd ${SOURCE} || _abort
     _make clean || true # For cases where there is not "clean" target
-    _git reset --hard
-    _git clean -d --force
+
+    find ${SOURCE} -name .gitignore -exec rm -f '{}' \;
+
+    git submodule foreach git clean -d --force
+    git clean -d --force
+
+    git submodule foreach git reset --hard
+    git reset --hard
 }
 
 _sync() {

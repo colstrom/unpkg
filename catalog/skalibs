@@ -3,7 +3,9 @@
 NAME=${NAME:-'skalibs'}
 VERSION=${VERSION:-'2.4.0.2'}
 TAG=${TAG:-v${VERSION}}
-ORIGIN_PATH=${ORIGIN_PATH='skarnet/skalibs'}
+ORIGIN_PREFIX=${ORIGIN_PREFIX:-'git://'}
+ORIGIN_HOST=${ORIGIN_HOST:-'git.skarnet.org'}
+ORIGIN_PATH=${ORIGIN_PATH='skalibs'}
 
 . ${INCLUDE}/functions
 

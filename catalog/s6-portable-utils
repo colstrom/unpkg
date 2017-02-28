@@ -10,20 +10,15 @@ ORIGIN_PATH=${ORIGIN_PATH='skarnet/s6-portable-utils'}
 _configure() {
     cd ${SOURCE} || _abort
 
-    if test -x configure
-    then
-        ./configure \
-            $(_configure_options) \
-            --with-sysdeps=/package/skalibs/sysdeps \
-            --with-include=/include \
-            --with-lib=/package/skalibs/library \
-            --with-dynlib=/package/skalibs/library \
-            --enable-shared \
-            --enable-absolute-paths
-            ${@:-}
-    else
-        true
-    fi
+    ./configure \
+        $(_configure_options) \
+        --enable-absolute-paths \
+        --enable-shared \
+        --with-dynlib=/package/skalibs/library \
+        --with-include=/include \
+        --with-lib=/package/skalibs/library \
+        --with-sysdeps=/package/skalibs/sysdeps \
+        ${@:-}
 }
 
 _main ${@:-}

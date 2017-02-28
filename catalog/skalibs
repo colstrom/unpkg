@@ -7,4 +7,17 @@ ORIGIN_PATH=${ORIGIN_PATH='skarnet/skalibs'}
 
 . ${INCLUDE}/functions
 
+_configure() {
+    cd ${BUILD} || _abort
+
+    ./configure \
+        $(_configure_options) \
+        --enable-absolute-paths \
+        --enable-clock \
+        --enable-iopause-select \
+        --enable-monotonic \
+        --with-default-path=${COMMAND_ROOT} \
+        ${@:-}
+}
+
 _main ${@:-}

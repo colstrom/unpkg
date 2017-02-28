@@ -19,7 +19,9 @@ _configure() {
         --with-dynlib=/package/execline/library \
         --with-dynlib=/package/s6/library \
         --with-dynlib=/package/skalibs/library \
+        --with-include=/package/execline/include \
         --with-include=/package/s6/include \
+        --with-include=/package/skalibs/include \
         --with-lib=/package/execline/library \
         --with-lib=/package/s6/library \
         --with-lib=/package/skalibs/library \

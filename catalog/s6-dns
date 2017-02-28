@@ -1,0 +1,25 @@
+#!/bin/sh
+
+NAME=${NAME:-'s6-dns'}
+VERSION=${VERSION:-'2.1.0.0'}
+TAG=${TAG:-v${VERSION}}
+ORIGIN_PREFIX=${ORIGIN_PREFIX:-'git://'}
+ORIGIN_HOST=${ORIGIN_HOST:-'git.skarnet.org'}
+ORIGIN_PATH=${ORIGIN_PATH='s6-dns'}
+
+. ${INCLUDE}/functions
+
+_configure() {
+    cd ${BUILD} || _abort
+
+    ./configure \
+        $(_configure_options) \
+        --enable-absolute-paths \
+        --enable-shared \
+        --with-dynlib=/package/skalibs/library \
+        --with-lib=/package/skalibs/library \
+        --with-sysdeps=/package/skalibs/sysdeps \
+        ${@:-}
+}
+
+_main ${@:-}

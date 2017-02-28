@@ -1,0 +1,29 @@
+#!/bin/sh
+
+NAME=${NAME:-'execline'}
+VERSION=${VERSION:-'2.2.0.0'}
+TAG=${TAG:-v${VERSION}}
+ORIGIN_PATH=${ORIGIN_PATH='skarnet/execline'}
+
+. ${INCLUDE}/functions
+
+_configure() {
+    cd ${SOURCE} || _abort
+
+    if test -x configure
+    then
+        ./configure \
+            $(_configure_options) \
+            --with-sysdeps=/package/skalibs/sysdeps \
+            --with-include=/include \
+            --with-lib=/package/skalibs/library \
+            --with-dynlib=/package/skalibs/library \
+            --enable-shared \
+            --enable-absolute-paths
+            ${@:-}
+    else
+        true
+    fi
+}
+
+_main ${@:-}

@@ -1,0 +1,35 @@
+#!/bin/sh
+
+NAME=${NAME:-'s6-networking'}
+VERSION=${VERSION:-'2.2.1.0'}
+TAG=${TAG:-v${VERSION}}
+ORIGIN_PREFIX=${ORIGIN_PREFIX:-'git://'}
+ORIGIN_HOST=${ORIGIN_HOST:-'git.skarnet.org'}
+ORIGIN_PATH=${ORIGIN_PATH='s6-networking'}
+
+. ${INCLUDE}/functions
+
+_configure() {
+    cd ${BUILD} || _abort
+
+    ./configure \
+        $(_configure_options) \
+        --enable-absolute-paths \
+        --enable-shared \
+        --enable-ssl=libressl \
+        --with-dynlib=/package/libressl/library \
+        --with-dynlib=/package/s6-dns/library \
+        --with-dynlib=/package/s6/library \
+        --with-dynlib=/package/skalibs/library \
+        --with-include=/package/libressl/include \
+        --with-include=/package/s6-dns/include \
+        --with-include=/package/s6/include \
+        --with-lib=/package/libressl/library \
+        --with-lib=/package/s6-dns/library \
+        --with-lib=/package/s6/library \
+        --with-lib=/package/skalibs/library \
+        --with-sysdeps=/package/skalibs/sysdeps \
+        ${@:-}
+}
+
+_main ${@:-}

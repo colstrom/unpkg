@@ -15,8 +15,8 @@ then
     # systems with Address Space Layout Randomization (OpenBSD, Solaris, NetBSD,
     # Alpine Linux, etc). Using -Os optimizes for size over speed.
     export CFLAGS="${CFLAGS:--Os -fPIC}"
-    export CPPFLAGS=${CPPFLAGS:-${CFLAGS}}
-    export CXXFLAGS=${CXXFLAGS:-${CPPFLAGS}}
+    export CPPFLAGS="${CPPFLAGS:-${CFLAGS}}"
+    export CXXFLAGS="${CXXFLAGS:-${CPPFLAGS}}"
 
     # With gcc, -s strips the resulting binaries. With clang, it warns that the
     # option is obsolete and being ignored for compatibility with gcc.

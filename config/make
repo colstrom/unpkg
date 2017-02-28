@@ -14,6 +14,8 @@ if test ${__CONFIG_MAKE:-'false'} = 'false'
 then
     __CONFIG_MAKE='loaded'
 
+    export MAKE_JOBS=${MAKE_JOBS:-'4'}
+
     export \
         PREFIX=${PREFIX:-${PACKAGE}} \
         EPREFIX=${EPREFIX:-${PACKAGE}} \

@@ -1,0 +1,13 @@
+diff --git i/Makefile w/Makefile
+index bffc468..05adf54 100644
+--- i/Makefile
++++ w/Makefile
+@@ -140,7 +140,7 @@ lib%.a.xyzzy:
+ 	exec $(RANLIB) $@
+ 
+ lib%.so.xyzzy:
+-	exec $(REALCC) -o $@ $(CFLAGS_ALL) $(CFLAGS_SHARED) $(LDFLAGS_ALL) $(LDFLAGS_SHARED) -Wl,-soname,$(patsubst lib%.so.xyzzy,lib%.so.$(version_M),$@) $^ $(EXTRA_LIBS) $(LDLIBS)
++	exec $(REALCC) -o $@ $(CFLAGS_ALL) $(CFLAGS_SHARED) $(LDFLAGS_ALL) $(LDFLAGS_SHARED) -Wl,-install_name,$(patsubst lib%.so.xyzzy,lib%.so.$(version_M),$@) $^ $(EXTRA_LIBS) $(LDLIBS)
+ 
+ .PHONY: it all clean distclean tgz strip install install-dynlib install-bin install-lib install-include install-data
+ 

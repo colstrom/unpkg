@@ -3,7 +3,9 @@
 NAME=${NAME:-'s6-portable-utils'}
 VERSION=${VERSION:-'2.1.0.0'}
 TAG=${TAG:-v${VERSION}}
-ORIGIN_PATH=${ORIGIN_PATH='skarnet/s6-portable-utils'}
+ORIGIN_PREFIX=${ORIGIN_PREFIX:-'git://'}
+ORIGIN_HOST=${ORIGIN_HOST:-'git.skarnet.org'}
+ORIGIN_PATH=${ORIGIN_PATH='s6-portable-utils'}
 
 . ${INCLUDE}/functions
 

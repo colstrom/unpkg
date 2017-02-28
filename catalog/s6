@@ -18,6 +18,8 @@ _configure() {
         --enable-shared \
         --with-dynlib=/package/execline/library \
         --with-dynlib=/package/skalibs/library \
+        --with-include=/package/execline/include \
+        --with-include=/package/skalibs/include \
         --with-lib=/package/execline/library \
         --with-lib=/package/skalibs/library \
         --with-sysdeps=/package/skalibs/sysdeps \

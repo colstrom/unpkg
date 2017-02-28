@@ -1,0 +1,16 @@
+diff --git i/update.sh w/update.sh
+index dbb9b60..922bf52 100755
+--- i/update.sh
++++ w/update.sh
+@@ -13,8 +13,9 @@ if [ ! -d openbsd ]; then
+ 	fi
+ fi
+ (cd openbsd
+- git checkout $openbsd_branch
+- git pull --rebase)
++ git checkout master
++ git pull
++ git checkout $openbsd_branch)
+ 
+ # setup source paths
+ CWD=`pwd`

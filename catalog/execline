@@ -8,7 +8,7 @@ ORIGIN_PATH=${ORIGIN_PATH='skarnet/execline'}
 . ${INCLUDE}/functions
 
 _configure() {
-    cd ${SOURCE} || _abort
+    cd ${BUILD} || _abort
 
     ./configure \
         $(_configure_options) \

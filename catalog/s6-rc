@@ -1,0 +1,30 @@
+#!/bin/sh
+
+NAME=${NAME:-'s6-rc'}
+VERSION=${VERSION:-'0.1.0.0'}
+TAG=${TAG:-v${VERSION}}
+ORIGIN_PREFIX=${ORIGIN_PREFIX:-'git://'}
+ORIGIN_HOST=${ORIGIN_HOST:-'git.skarnet.org'}
+ORIGIN_PATH=${ORIGIN_PATH='s6-rc'}
+
+. ${INCLUDE}/functions
+
+_configure() {
+    cd ${BUILD} || _abort
+
+    ./configure \
+        $(_configure_options) \
+        --enable-absolute-paths \
+        --enable-shared \
+        --with-dynlib=/package/execline/library \
+        --with-dynlib=/package/s6/library \
+        --with-dynlib=/package/skalibs/library \
+        --with-include=/package/s6/include \
+        --with-lib=/package/execline/library \
+        --with-lib=/package/s6/library \
+        --with-lib=/package/skalibs/library \
+        --with-sysdeps=/package/skalibs/sysdeps \
+        ${@:-}
+}
+
+_main ${@:-}

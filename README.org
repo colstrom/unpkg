@@ -50,7 +50,7 @@
   expression engine for ~grep~ varies varies by implementation, compile-time
   flags, and possibly the name it was invoked with (~egrep~ for instance, being
   a wrapper that invokes grep with =-E=). Avoiding this ambiguity is made more
-  difficult, as =-F= (fixed strings) not supported in all implementations.
+  difficult, as =-F= (fixed strings) is not supported in all implementations.
 
   In-place modifications with ~sed~ may or may not be supported, and if they
   are, it's either =-I= or =-i=, which (sometimes) requires an argument.

@@ -5,7 +5,7 @@
 
   ~unpkg~ is an adventure to discover what the world looks like if we approached
   portability from a different perspective:
-  
+
   Rather than throwing out everything that isn't available everywhere, let's try
   making things run more consistently in more places.
 
@@ -15,10 +15,63 @@
   define how things *are*, not how they *should be*. ~unpkg~ is a journey to
   build a better world.
 
+* On the shaving of yaks...
+
+  ~unpkg~ started as a simple yak-shave. I wanted to build a cross-platform tool
+  whose purpose isn't relevant to the story. I stood up a handful of systems and
+  took inventory. Was there a language that was available everywhere, at a
+  reasonably-consistent version? I expected this to result in some limited
+  subset of some shell scripting dialect that would behave consistently, even if
+  it wasn't especially nice to write. Maybe ~bash~? Versions were too
+  inconsistent (ranging from 3.2.x to 4.4.x), and the plethora of options ~bash~
+  could have been built with was staggering (affecting available =builtins= and
+  =conditionals=, the behaviour of looping constructs like ~for~, file globbing,
+  job control, and conformance to standards, among other things).
+
+  Even if somehow, I had found a consistently-available language, there was
+  still the problem of =PATH= and available commands. Take ~awk~ for instance:
+  On some systems, it's the traditional ~awk~ one might expect, as was given to
+  us by the elders Aho, Weinberger, and Kernighan. Elsewhere, it was Kernighan's
+  ~nawk~ (New AWK), which brought us =-v= to drive away the darkness. On other
+  systems, it was Mike Brennan's ~mawk~ (or Thomas Dickey's [[http://invisible-island.net/mawk/CHANGES][updated version]]),
+  with its zippy bytecode interpreter. On others, it's actually GNU ~gawk~
+  (Rubin, Fenlason, Stallman, Robbins), with its newfangled long-form arguments,
+  and a heap of options nobody asked for or wanted, like this one:
+
+  #+BEGIN_EXAMPLE
+    -C
+    --copyright
+
+      Print the short version of the GNU copyright information message on the
+      standard output and exit successfully.
+  #+END_EXAMPLE
+
+  I'll omit the history, but this extended well beyond ~awk~. The regular
+  expression engine for ~grep~ varies varies by implementation, compile-time
+  flags, and possibly the name it was invoked with (~egrep~ for instance, being
+  a wrapper that invokes grep with =-E=). Avoiding this ambiguity is made more
+  difficult, as =-F= (fixed strings) not supported in all implementations.
+
+  In-place modifications with ~sed~ may or may not be supported, and if they
+  are, it's either =-I= or =-i=, which (sometimes) requires an argument.
+
+  The list goes on. These aren't issues with writing portable shell scripts (a
+  different problem, described in part [[http://www.etalabs.net/sh_tricks.html][here]]). These are issues with having a
+  predictable set of tools available to use. To build with. To *work* with.
+
+  Have a look at DJB's [[https://cr.yp.to/docs/unixport.html][UNIX portability notes]] for more issues.
+
+  We have standards that make claims of portability (looking at you, POSIX), but
+  largely serve to blindly document the things we're doing, even when those
+  things aren't actually *good*. Once bad things are enshrined in standards
+  documents, it's very challenging to fix them.
+
+  Let's try something different.
+
 * The Platforms
 
   The test platforms are currently (February 2017):
-  
+
   | Family  | Distribution | Release |
   |---------+--------------+---------|
   | BSD     | DragonFly    |     4.6 |
@@ -42,33 +95,93 @@
 
 * Requirements
 
-  At minimum, you'll need a working copy of ~git~. To do anything useful, you'll
-  also want a compiler (~gcc~ and ~clang~ are known to work) and a copy of
-  ~make~ (GNU make is known to work).
+  All requirements are readily available in the default repositories for all
+  tested platforms. These are only required to *build* packages, not to *use*
+  packages that have already been built.
+
+** Required
+
+   - A working copy of ~git~ in your =PATH=
+   - A compiler of some sort (~clang~ or ~gcc~)
+   - GNU make
+
+** Optional (but required to build many packages)
+
+   - GNU autoconf
+   - GNU automake
+   - GNU bison
+   - GNU coreutils
+   - GNU gettext
+   - GNU libtool
+   - GNU make
 
 * Installation
-  
-  Everyone loves piping things from the internet to a shell, right?
 
-  Assuming =/package=, =/source=, and =/commmand= exist and are writable by
-  =${UNPKG_USER}= you can run:
+** Create Initial Directories
 
-  #+BEGIN_SRC shell
-    curl https://raw.githubusercontent.com/colstrom/unpkg/develop/tool/unpkg.init | env UNPKG_USER=$(whoami) sh
-  #+END_SRC
+   You'll probably need to do this as root, since normal users can't create
+   directories in =/=. Commands below assume ~sudo~ as examples, but you should
+   substitute the appropriate mechanism for your platform (~su~, ~doas~, etc).
 
-  If that seems like a lot of work, the installer can do that for you, if you
-  run it as root.
+   #+BEGIN_SRC shell
+     sudo mkdir /package /source /command
+   #+END_SRC
 
-  #+BEGIN_SRC shell
-    # as root
-    export UNPKG_LET_ME_RUN_ARBITRARY_CODE_FROM_THE_INTERNET_AS_ROOT=true
-    curl https://raw.githubusercontent.com/colstrom/unpkg/develop/tool/unpkg.init | sh
-  #+END_SRC
+   Pick a user to manage packages. In this example, the current user (as
+   reported by ~whoami~) is used, but if you have an =unpkg= user or something
+   of the sort, substitute it here. Using root for this is probably the worst
+   idea ever, since this user will be fetching and compiling arbitrary code from
+   the internet.
+
+   For ~fish~:
+
+   #+BEGIN_SRC shell
+     sudo chown -R (whoami) /package /source /command
+   #+END_SRC
+
+   For vintage shells like ~bash~:
+
+   #+BEGIN_SRC shell
+     sudo chown -R $(whoami) /package /source /command
+   #+END_SRC
+
+   Fetch the ~unpkg~ source, and place it where ~unpkg~ would:
+
+   #+BEGIN_SRC shell
+     git clone https://github.com/colstrom/unpkg.git /source/github.com/colstrom/unpkg
+   #+END_SRC
+
+   Create a link in =/package= for ~unpkg~:
+
+   #+BEGIN_SRC shell
+     ln -s /source/github.com/colstrom/unpkg /package/unpkg
+   #+END_SRC
+
+   Create a link for the ~unpkg~ command in =/command=:
+
+   #+BEGIN_SRC shell
+     ln -s /package/unpkg/command/unpkg /command/unpkg
+   #+END_SRC
+
+   Add =/command= to your path. In this example, we'll also add user-specific
+   =command= directory, in case you want to do things like pretend ~bash~ is
+   ~sh~, or GNU ~awk~ is actually ~awk~. Some people are into that sort of
+   thing.
+
+   For ~fish~:
+
+   #+BEGIN_SRC shell
+     echo 'set --export PATH ~/command /command $PATH' | tee -a ~/.config/fish/config.fish
+   #+END_SRC
+
+   For vintage shells like ~bash~:
+
+   #+BEGIN_SRC shell
+     echo 'export PATH=${HOME}/command:/command:${PATH}' | tee -a ${HOME}/.$(basename ${SHELL})
+   #+END_SRC
 
 * Usage
 
-  - Add =/command= to your PATH.
   - Run ~unpkg~ to see a list of available packages.
   - Run ~unpkg <package>~, where =<package>= is a package you want.
 

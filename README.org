@@ -18,7 +18,7 @@
 * On the shaving of yaks...
 
   ~unpkg~ started as a simple yak-shave. I wanted to build a cross-platform tool
-  whose purpose isn't relevant to the story. I stood up a handful of systems and
+  whose purpose isn't relevant to the story. I fired up a handful of systems and
   took inventory. Was there a language that was available everywhere, at a
   reasonably-consistent version? I expected this to result in some limited
   subset of some shell scripting dialect that would behave consistently, even if

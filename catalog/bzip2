@@ -1,0 +1,28 @@
+#!/bin/sh
+
+NAME=${NAME:-'bzip2'}
+VERSION=${VERSION:-'1.0.6'}
+ORIGIN_PATH=${ORIGIN_PATH='tar-mirror/bzip2'}
+
+. ${INCLUDE}/functions
+
+_patch() {
+    for patch in ${PATCHES}/${NAME} ${PATCHES}/${NAME}.$(uname -s)
+    do
+        if test -f ${patch}
+        then
+            git apply ${patch} || _abort
+        fi
+    done
+
+    sed \
+        -e "s#/usr/local#${PACKAGE}#g" \
+        -e "s#..PREFIX./bin#${COMMAND_DIR}#g" \
+        -e "s#..PREFIX./include#${INCLUDE_DIR}#g" \
+        -e "s#..PREFIX./lib#${LIBRARY_DIR}#g" \
+        -e "s#..PREFIX./man#${MANUAL_DIR}#g" \
+        Makefile > Makefile.fixed || _abort
+    mv Makefile.fixed Makefile || _abort
+}
+
+_main ${@:-}

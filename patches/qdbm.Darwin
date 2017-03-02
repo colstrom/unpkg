@@ -1,0 +1,39 @@
+diff --git i/Makefile.in w/Makefile.in
+index 384146b..3fa6e0f 100644
+--- i/Makefile.in
++++ w/Makefile.in
+@@ -488,7 +488,7 @@ libqdbm.so.$(LIBVER).$(LIBREV).0 : $(MYLIBOBJS)
+ 	  then \
+ 	    $(CC) -shared -Wl,-G,-h,libqdbm.so.$(LIBVER) -o $@ $(MYLIBOBJS) $(LIBLDFLAGS) ; \
+ 	  else \
+-	    $(CC) -shared -Wl,-soname,libqdbm.so.$(LIBVER) -o $@ $(MYLIBOBJS) $(LIBLDFLAGS) ; \
++	    $(CC) -shared -Wl,-install_name,libqdbm.so.$(LIBVER) -o $@ $(MYLIBOBJS) $(LIBLDFLAGS) ; \
+ 	  fi
+ 
+ 
+diff --git i/java/Makefile.in w/java/Makefile.in
+index 4e99f0e..5e03123 100644
+--- i/java/Makefile.in
++++ w/java/Makefile.in
+@@ -256,7 +256,7 @@ libjqdbm.so.$(LIBVER).$(LIBREV).0 : $(MYLIBOBJS)
+ 	  then \
+ 	    $(CC) -shared -Wl,-G,-h,libjqdbm.so.$(LIBVER) -o $@ $(MYLIBOBJS) $(LIBLDFLAGS) ; \
+ 	  else \
+-	    $(CC) -shared -Wl,-soname,libjqdbm.so.$(LIBVER) -o $@ $(MYLIBOBJS) $(LIBLDFLAGS) ; \
++	    $(CC) -shared -Wl,-install_name,libjqdbm.so.$(LIBVER) -o $@ $(MYLIBOBJS) $(LIBLDFLAGS) ; \
+ 	  fi
+ 
+ 
+diff --git i/plus/Makefile.in w/plus/Makefile.in
+index a5fb9a2..8cfb77b 100644
+--- i/plus/Makefile.in
++++ w/plus/Makefile.in
+@@ -261,7 +261,7 @@ libxqdbm.so.$(LIBVER).$(LIBREV).0 : $(MYLIBOBJS)
+ 	  then \
+ 	    $(CXX) -shared -Wl,-G,-h,libxqdbm.so.$(LIBVER) -o $@ $(MYLIBOBJS) $(LIBLDFLAGS) ; \
+ 	  else \
+-	    $(CXX) -shared -Wl,-soname,libxqdbm.so.$(LIBVER) -o $@ $(MYLIBOBJS) $(LIBLDFLAGS) ; \
++	    $(CXX) -shared -Wl,-install_name,libxqdbm.so.$(LIBVER) -o $@ $(MYLIBOBJS) $(LIBLDFLAGS) ; \
+ 	  fi
+ 
+ 

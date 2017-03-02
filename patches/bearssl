@@ -1,5 +1,5 @@
 diff --git i/conf/Unix.mk w/conf/Unix.mk
-index 7764748..082d3e8 100644
+index 7764748..c82ff90 100644
 --- i/conf/Unix.mk
 +++ w/conf/Unix.mk
 @@ -38,7 +38,7 @@ MKDIR = mkdir -p
@@ -7,7 +7,7 @@ index 7764748..082d3e8 100644
  # C compiler and flags.
  CC = gcc
 -CFLAGS = -W -Wall -Os -fPIC
-+CFLAGS = -W -Wall -Os -fPIC -msse3
++CFLAGS = -W -Wall -Os -fPIC -mssse3
  CCOUT = -c -o 
  
  # Static library building tool.

@@ -1,0 +1,13 @@
+diff --git i/Makefile w/Makefile
+index 9754ddf..fea3d46 100644
+--- i/Makefile
++++ w/Makefile
+@@ -21,7 +21,7 @@ RANLIB=ranlib
+ LDFLAGS=
+ 
+ BIGFILES=-D_FILE_OFFSET_BITS=64
+-CFLAGS=-Wall -Winline -O2 -g $(BIGFILES)
++CFLAGS=-Wall -Winline -Os -fPIC $(BIGFILES)
+ 
+ # Where you want it installed when you do 'make install'
+ PREFIX=/usr/local

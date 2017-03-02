@@ -9,6 +9,22 @@ LDFLAGS="-L/package/zlib/library"
 
 . ${INCLUDE}/functions
 
+_patch() {
+    for patch in ${PATCHES}/${NAME} ${PATCHES}/${NAME}.$(uname -s)
+    do
+        if test -f ${patch}
+        then
+            git apply ${patch} || _abort
+        fi
+    done
+
+    for makefile in Makefile.in java/Makefile.in plus/Makefile.in
+    do
+        sed -e 's#make #$(MAKE) #' ${makefile} > ${makefile}.fixed
+        mv ${makefile}.fixed ${makefile}
+    done
+}
+
 _configure() {
     ./configure \
         $(_configure_options) \

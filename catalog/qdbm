@@ -1,0 +1,20 @@
+#!/bin/sh
+
+NAME=${NAME:-'qdbm'}
+VERSION=${VERSION:-'1.8.78'}
+ORIGIN_PATH=${ORIGIN_PATH='tar-mirror/qdbm'}
+
+CFLAGS="${CFLAGS} -I/package/zlib/include"
+LDFLAGS="-L/package/zlib/library"
+
+. ${INCLUDE}/functions
+
+_configure() {
+    ./configure \
+        $(_configure_options) \
+        --enable-stable \
+        --enable-zlib \
+        ${@:-}
+}
+
+_main ${@:-}

@@ -14,7 +14,7 @@ then
     # Using -fPIC generates position independent code. This is primarily for
     # systems with Address Space Layout Randomization (OpenBSD, Solaris, NetBSD,
     # Alpine Linux, etc). Using -Os optimizes for size over speed.
-    export CFLAGS="${CFLAGS:--Os -fPIC}"
+    export CFLAGS="${CFLAGS:--Os -fPIC -pipe}"
     export CPPFLAGS="${CPPFLAGS:-${CFLAGS}}"
     export CXXFLAGS="${CXXFLAGS:-${CPPFLAGS}}"
 

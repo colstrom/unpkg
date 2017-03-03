@@ -1,0 +1,9 @@
+#!/bin/sh
+
+NAME=${NAME:-'scheme48'}
+VERSION=${VERSION:-'1.9.2'}
+ORIGIN_PATH=${ORIGIN_PATH='tar-mirror/scheme48'}
+
+. ${INCLUDE}/functions
+
+_main ${@:-}

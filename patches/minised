@@ -1,0 +1,29 @@
+diff --git i/Makefile w/Makefile
+index fb2f527..88b4b7b 100644
+--- i/Makefile
++++ w/Makefile
+@@ -2,12 +2,6 @@
+ 
+ # If your compiler does not support this flags, just remove them.
+ # They only ensure that no new warning regressions make it into the source.
+-CFLAGS += -O1 -Wall -Wwrite-strings
+-
+-DESTDIR=
+-PREFIX=/usr
+-BINDIR=$(PREFIX)/bin
+-MANDIR=$(PREFIX)/share/man/man1
+ 
+ minised: sedcomp.o sedexec.o
+ 	$(CC) $(LDFLAGS) sedcomp.o sedexec.o -o minised
+@@ -16,9 +10,9 @@ sedcomp.o: sedcomp.c sed.h
+ sedexec.o: sedexec.c sed.h
+ 
+ install:
+-	install -d -m 755 $(DESTDIR)$(BINDIR) $(DESTDIR)$(MANDIR)
++	install -d -m 755 $(DESTDIR)$(BINDIR) $(DESTDIR)$(MANDIR)/man1
+ 	install -m 755 minised $(DESTDIR)$(BINDIR)
+-	install -m 644 minised.1 $(DESTDIR)$(MANDIR)
++	install -m 644 minised.1 $(DESTDIR)$(MANDIR)/man1
+ 
+ clean:
+ 	rm -f minised sedcomp.o sedexec.o

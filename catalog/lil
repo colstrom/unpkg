@@ -1,0 +1,19 @@
+#!/bin/sh
+
+NAME=${NAME:-'lil'}
+VERSION=${VERSION:-'20161129'}
+ORIGIN_PATH=${ORIGIN_PATH='tar-mirror/lil'}
+
+. ${INCLUDE}/functions
+
+CFLAGS="${CFLAGS} -std=c99"
+LDFLAGS="${LDFLAGS} -L."
+
+_install() {
+    mkdir -p ${COMMAND_DIR} ${LIBRARY_DIR} ${INCLUDE_DIR} \
+        && tar cf - lil | tar xf - -C ${COMMAND_DIR} \
+        && tar cf - lil.h | tar xf - -C ${INCLUDE_DIR} \
+        && tar cf - liblil.a | tar xf - -C ${LIBRARY_DIR}
+}
+
+_main ${@:-}

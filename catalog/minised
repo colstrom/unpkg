@@ -1,0 +1,9 @@
+#!/bin/sh
+
+NAME=${NAME:-'minised'}
+VERSION=${VERSION:-'1.15'}
+ORIGIN_PATH=${ORIGIN_PATH='tar-mirror/minised'}
+
+. ${INCLUDE}/functions
+
+_main ${@:-}

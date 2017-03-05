@@ -66,7 +66,97 @@
   things aren't actually *good*. Once bad things are enshrined in standards
   documents, it's very challenging to fix them.
 
+  Consider how Filesystem Hierarchy Standard [[https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch04s07.html][describes]] =/usr/libexec= (emphasis
+  mine):
+
+  #+BEGIN_QUOTE
+  /usr/libexec : Binaries run by other programs (optional)
+
+  /usr/libexec includes internal binaries that are not intended to be executed
+  directly by users or shell scripts. Applications may use a single subdirectory
+  under /usr/libexec.
+
+  Applications which use /usr/libexec in this way must not also use /usr/lib to
+  store internal binaries, though they may use /usr/lib for the other purposes
+  documented here.
+
+  Some previous versions of this document did not support /usr/libexec, despite
+  it being standard practice in a number of environments. [26] To accomodate
+  this restriction, it became common practice to use /usr/lib instead. Either
+  practice is now acceptable, but *each application* must choose one way or the
+  other to organize itself.
+  #+END_QUOTE
+
+  How can we rely on this? Each package must be inspected to determine which
+  practice it follows (if any), and how it varies within those boundaries.
+
+  Now, this isn't to say that all standards are fundamentally broken and have no
+  redeeming qualities, but it seems clear that even on a "standards-compliant"
+  system, there's no assurance of consistency.
+
   Let's try something different.
+
+** Inspiration
+
+   Since this isn't a new problem, it makes sense to draw inspiration from the
+   *good* parts of current standards, packaging approaches, and systems.
+
+   The way the various BSD and illumos distributions view the operating system
+   makes more sense than the GNU/Linux approach: The OS is more than the kernel,
+   it is the system as distributed. There is a clear divide between the system,
+   and local packages. This allows the system to be internally consistent,
+   knowing exactly what will be available and where it will be located.
+
+   The key takeaway here is that we take responsibility for providing the tools
+   we need, we can rely on them being available when we need them.
+
+   NetBSD's =pkgsrc= gets a lot of things right. Most importantly, it proves
+   that cross-platform builds are possible, and that a strong collection of
+   packages can be provided across a wide array of systems. However, while any
+   given package builds consistently across supported platforms, individual
+   packages can be laid out mostly however they want (with mixed results).
+
+   There's a lot to leverage there.
+
+   DJB's [[https://cr.yp.to/slashpackage.html][slashpackage]] proposes a structure that is so close to right, but misses
+   the mark in a few ways. Critically, the requirement to register a package
+   name with a central authority is unreasonable, and presents a significant
+   obstacle to packaging efforts. Furthermore, it shares a flaw in common with
+   =pkgsrc= and the BSD =ports= tree: categories. Categories are subjective.
+   Take =sudo=, for instance. Is it =security/sudo=, =admin/sudo=, or
+   =sys/sudo=? With shell scripting languages, where is the line between =shell=
+   and =lang=? Should it be =shell/bash= or =lang/bash=? Finally, while
+   comparatively less significant, =/package/category/name-version= could be
+   easier to separate into =name= and =version=.
+
+** The Hierarchy
+
+*** /package
+
+   1. =/package= is a world-readable directory to hold packages.
+   2. Version =V= of package =P= is installed at =/package/P/V=.
+      1. If =P= provides any commands, they are installed at
+         =/package/P/V/command=.
+      2. If =P= provides any libraries, they are installed under
+         =/package/P/V/library=.
+      3. If =P= provides any headers, they are installed under
+         =/package/P/V/include=.
+      4. If =P= provides any manuals, they are installed under
+         =/package/P/V/manual=.
+      5. If =P= has any internal commands that are not indented for consumption
+         by users or external scripts, they are installed under
+         =/package/P/V/tool=.
+   3. =/package/P/any= is a symlink to the preferred version of =P= on the
+      system.
+   4. Given only version =X.Y.Z= of package =P=...
+      1. =/package/P/X.any= is a symbolic link to =X.Y.Z=
+      2. =/package/P/X.Y.any= is a symbolic link to =X.Y.Z=
+
+*** /command and $HOME/command
+
+    1. =/command= is a world-readable directory containing symbolic links to
+       all installed commands.
+    2. =/package/*/any/command/*= should be symlinked into =/command=.
 
 * The Platforms
 

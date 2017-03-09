@@ -39,9 +39,13 @@ _install() {
     fi
 }
 
-if test ${#} = 0
-then
-    _packages
-else
-    _package "${@:-}"
-fi
+main() {
+    case ${1:-'list'} in
+        av|avail) _avail;;
+        ls|list) _list;;
+        in|install) _install;;
+        *) _install "${@:-}";;
+    esac
+}
+
+main ${@:-}

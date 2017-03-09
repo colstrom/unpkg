@@ -30,7 +30,7 @@ then
     # All commands from packages are linked here
     COMMAND_ROOT=${ROOT}/command
 
-    UNPKG=${UNPKG:-${PACKAGE_ROOT}/unpkg}
+    UNPKG=${UNPKG:-${PACKAGE_ROOT}/unpkg/any}
     CATALOG=${PACKAGES:-${UNPKG}/catalog}
     CONFIG=${CONFIG:-${UNPKG}/config}
     INCLUDE=${INCLUDE:-${UNPKG}/include}

@@ -26,8 +26,8 @@ _avail() {
     find "${CATALOG}/" -type f | tr -s / | sed "s#^${CATALOG}/##" | sort
 }
 
-_package() {
-    if _packages | grep -q "^${1:-}\$"
+_install() {
+    if _avail | grep -q "^${1:-}\$"
     then
         INCLUDE=${INCLUDE} exec ${CATALOG}/${@:-}
     else

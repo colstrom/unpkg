@@ -22,8 +22,8 @@ EOF
     exit 100
 }
 
-_packages() {
-    find "${CATALOG}/" -type f | tr -s / | sed "s#^${CATALOG}/##"
+_avail() {
+    find "${CATALOG}/" -type f | tr -s / | sed "s#^${CATALOG}/##" | sort
 }
 
 _package() {

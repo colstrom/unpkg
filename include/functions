@@ -196,9 +196,9 @@ _reinstall() {
 _import_commands() {
     test -e ${COMMAND_ROOT} || mkdir -p ${COMMAND_ROOT} || exit 111
 
-    if test -e ${PACKAGE_ROOT}/${NAME}/command
+    if test -e ${PACKAGE_ROOT}/${NAME}/any/command
     then
-        find ${PACKAGE_ROOT}/${NAME}/command -exec ln -sf '{}' ${COMMAND_ROOT} \;
+        find ${PACKAGE_ROOT}/${NAME}/any/command -exec ln -sf '{}' ${COMMAND_ROOT} \;
     fi
 }
 

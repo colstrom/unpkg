@@ -26,6 +26,10 @@ _avail() {
     find "${CATALOG}/" -type f | tr -s / | sed "s#^${CATALOG}/##" | sort
 }
 
+_list() {
+    find "${PACKAGE_ROOT}/" -mindepth 1 -maxdepth 1 -type d -exec basename '{}' \; | sort
+}
+
 _install() {
     if _avail | grep -q "^${1:-}\$"
     then

@@ -4,9 +4,7 @@ NAME=${NAME:-'gnu-autoconf'}
 VERSION=${VERSION:-'2.69'}
 TAG=${TAG:-v${VERSION}}
 
-ORIGIN_PREFIX='git://'
-ORIGIN_HOST=${ORIGIN_HOST:-'git.savannah.gnu.org'}
-ORIGIN_PATH=${ORIGIN_PATH:-'autoconf.git'}
+ORIGIN_PATH=${ORIGIN_PATH:-'tar-mirror/gnu-autoconf'}
 
 . ${INCLUDE}/functions
 

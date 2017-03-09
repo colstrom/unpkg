@@ -52,7 +52,7 @@ ORIGIN=${ORIGIN:-"${ORIGIN_PREFIX}${ORIGIN_HOST}/${ORIGIN_PATH}"}
 ######################
 
 # Must always refer to the directory the package is to be installed in.
-PACKAGE=${PACKAGE_ROOT}/${NAME}--${VERSION}
+PACKAGE=${PACKAGE_ROOT}/${NAME}/${VERSION}
 
 # Must always refer to the root of the source repository.
 SOURCE=${SOURCE_ROOT}/${ORIGIN_HOST}/${ORIGIN_PATH}

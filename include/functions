@@ -109,8 +109,8 @@ _configure_options() {
     test -n "${AWK}" || _abort
 
     _configure_help \
-        | _awk -f ${TOOL}/extract-configure-options.awk \
-        | _awk $(env | ${AWK} '!/[[:space:]]/ { print "-v " $0 }') -f ${TOOL}/configure.awk \
+        | _awk -f ${INTERNAL_COMMAND}/extract-configure-options.awk \
+        | _awk $(env | ${AWK} '!/[[:space:]]/ { print "-v " $0 }') -f ${INTERNAL_COMMAND}/configure.awk \
         | _awk '$1 !~ /=$/'
 }
 

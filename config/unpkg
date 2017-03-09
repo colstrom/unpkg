@@ -35,5 +35,5 @@ then
     CONFIG=${CONFIG:-${UNPKG}/config}
     INCLUDE=${INCLUDE:-${UNPKG}/include}
     PATCHES=${PATCHES:-${UNPKG}/patches}
-    TOOL=${TOOL:-${UNPKG}/tool}
+    INTERNAL_COMMAND=${INTERNAL_COMMAND:-${UNPKG}/.command}
 fi

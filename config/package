@@ -95,7 +95,7 @@ DOC_DIR=${DOC_DIR:-${PACKAGE}/doc}
 # in PATH, but a user probably wouldn't. This is what "libexec" is supposed to
 # be, according to the FHS (if you ignore the part where it says using "lib" for
 # this purpose is acceptable, as long as you don't do both).
-TOOL_DIR=${TOOL_DIR:-${PACKAGE}/tool}
+INTERNAL_COMMAND_DIR=${INTERNAL_COMMAND_DIR:-${PACKAGE}/.command}
 
 . ${CONFIG}/path
 . ${CONFIG}/commands

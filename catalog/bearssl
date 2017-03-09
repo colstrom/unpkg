@@ -7,12 +7,12 @@ ORIGIN_PATH=${ORIGIN_PATH='with-tags/bearssl'}
 . ${INCLUDE}/functions
 
 _install() {
-    mkdir -p ${COMMAND_DIR} ${INCLUDE_DIR} ${LIBRARY_DIR} ${TOOL_DIR}
+    mkdir -p ${COMMAND_DIR} ${INCLUDE_DIR} ${LIBRARY_DIR} ${INTERNAL_COMMAND_DIR}
 
     cd ${BUILD}/build || _abort
     tar cf - brssl | tar xf - -C ${COMMAND_DIR}
     tar cf - *.a *.so | tar xf - -C ${LIBRARY_DIR}
-    tar cf - test* | tar xf - -C ${TOOL_DIR}
+    tar cf - test* | tar xf - -C ${INTERNAL_COMMAND_DIR}
 
     cd ${BUILD}/inc || _abort
     tar cf - *.h | tar xf - -C ${INCLUDE_DIR}

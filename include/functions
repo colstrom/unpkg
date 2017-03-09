@@ -3,7 +3,7 @@
 
 ROOT=${ROOT:-''}
 PACKAGE_ROOT=${PACKAGE_ROOT:-${ROOT}/package}
-UNPKG=${UNPKG:-${PACKAGE_ROOT}/unpkg}
+UNPKG=${UNPKG:-${PACKAGE_ROOT}/unpkg/any}
 CONFIG=${CONFIG:-${UNPKG}/config}
 
 . ${CONFIG}/package

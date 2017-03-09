@@ -145,7 +145,7 @@
          =/package/P/V/manual=.
       5. If =P= has any internal commands that are not indented for consumption
          by users or external scripts, they are installed under
-         =/package/P/V/tool=.
+         =/package/P/V/.command=.
    3. =/package/P/any= is a symlink to the preferred version of =P= on the
       system.
    4. Given only version =X.Y.Z= of package =P=...

@@ -250,13 +250,13 @@
    Create a link in =/package= for ~unpkg~:
 
    #+BEGIN_SRC shell
-     ln -s /source/github.com/colstrom/unpkg /package/unpkg
+     ln -s /source/github.com/colstrom/unpkg /package/unpkg/any
    #+END_SRC
 
    Create a link for the ~unpkg~ command in =/command=:
 
    #+BEGIN_SRC shell
-     ln -s /package/unpkg/command/unpkg /command/unpkg
+     ln -s /package/unpkg/any/command/unpkg /command/unpkg
    #+END_SRC
 
    Add =/command= to your path. In this example, we'll also add user-specific

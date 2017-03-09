@@ -157,6 +157,12 @@
     1. =/command= is a world-readable directory containing symbolic links to
        all installed commands.
     2. =/package/*/any/command/*= should be symlinked into =/command=.
+    3. The default =$PATH= is a single entry: =/command=.
+       1. Individual programs may choose to extend this. For instance,
+          interactive shells may prepend =$HOME/command= to =$PATH=, allowing
+          user-specific commands that are not provided by the system, or
+          adjustments to personal taste (such as =$HOME/command/cc= being a
+          symbolic link to a user's preferred compiler).
 
 * The Platforms
 

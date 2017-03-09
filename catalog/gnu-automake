@@ -8,13 +8,8 @@ ORIGIN_PATH=${ORIGIN_PATH:-'tar-mirror/gnu-automake'}
 
 . ${INCLUDE}/functions
 
-_bootstrap() {
-    cd ${BUILD} || _abort
-    ./bootstrap.sh
-}
-
-_build() {
-    _clean && _patch && _bootstrap && _configure && _make
+_supports_autoconf() {
+    false
 }
 
 _main ${@:-}

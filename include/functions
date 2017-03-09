@@ -165,18 +165,18 @@ _package_is_installed() {
 }
 
 _active_version() {
-    basename "$(readlink ${PACKAGE_ROOT}/${NAME})"
+    basename "$(readlink ${PACKAGE_ROOT}/${NAME}/any)"
 }
 
 _version_is_active() {
-    test "$(_active_version)" = ${NAME}--${VERSION}
+    test "$(_active_version)" = ${VERSION}
 }
 
 _activate() {
     if ! _version_is_active
     then
-        rm -f ${PACKAGE_ROOT}/${NAME}
-        ln -s ${NAME}--${VERSION} ${PACKAGE_ROOT}/${NAME}
+        rm -f ${PACKAGE_ROOT}/${NAME}/any
+        ln -s ${VERSION} ${PACKAGE_ROOT}/${NAME}/any
     fi
 }
 

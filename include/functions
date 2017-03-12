@@ -44,7 +44,6 @@ _git() {
 
 _clean() {
     cd ${SOURCE} || _abort
-    _make clean || true # For cases where there is not "clean" target
 
     find ${SOURCE} -name .gitignore -exec rm -f '{}' \;
 

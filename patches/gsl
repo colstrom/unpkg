@@ -14,11 +14,15 @@ index c9cf4c0..2d3ff36 100644
  # Default values for object, library, and executable extensions.
  #
 diff --git i/src/c w/src/c
-index 1add2d8..499f1ae 100755
+index 1add2d8..d4afdac 100755
 --- i/src/c
 +++ w/src/c
-@@ -199,10 +199,10 @@ if [ "$CCNAME" = "gcc" ]; then
-         if [ -d /usr/apr/lib ]; then
+@@ -196,13 +196,13 @@ if [ "$CCNAME" = "gcc" ]; then
+             fi
+         fi
+         #  Workaround for FOR-24
+-        if [ -d /usr/apr/lib ]; then
++        if [ -d /package/apr/any/library ]; then
              # In newer distributions, such as OpenIndiana, there may be
              # a preferred version of APR (such as 1.3 as of now)
 -            STDLIBS="-L/usr/apr/lib -R/usr/apr/lib $STDLIBS"

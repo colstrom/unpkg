@@ -14,12 +14,12 @@ BUILD=${SOURCE}/userspace
 LDFLAGS=''
 
 _install() {
-    cd ${SOURCE} || _abort
+    cd ${BUILD} || _abort
 
     mkdir -p ${COMMAND_DIR} ${INTERNAL_COMMAND_DIR}
 
-    tar cf - -C userspace xzminidec | tar xf - -C ${COMMAND_DIR}
-    tar cf - -C userspace boottest buftest bytetest | tar xf - -C ${INTERNAL_COMMAND_DIR}
+    tar cf - xzminidec | tar xf - -C ${COMMAND_DIR}
+    tar cf - boottest buftest bytetest | tar xf - -C ${INTERNAL_COMMAND_DIR}
 }
 
 _main ${@:-}

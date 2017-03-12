@@ -87,7 +87,7 @@ _autogen_configure() {
         then
             ./autogen.sh
         else
-            autoreconf -i
+            autoreconf --install --no-recursive --force
         fi
     else
         true

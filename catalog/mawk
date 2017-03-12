@@ -25,9 +25,9 @@ _configure() {
 }
 
 _install() {
-    mkdir -p ${COMMAND_DIR} ${MANUAL_DIR}/man1
+    mkdir -p ${COMMAND_DIR} ${DOC_DIR}/man1
     _make install
-    mv ${MANUAL_DIR}/*.1 ${MANUAL_DIR}/man1
+    mv ${DOC_DIR}/*.1 ${DOC_DIR}/man1
 }
 
 _main ${@:-}

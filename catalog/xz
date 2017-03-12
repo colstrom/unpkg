@@ -6,7 +6,7 @@ TAG=${TAG:-v${VERSION}}
 
 ORIGIN_PREFIX=${ORIGIN_PREFIX='http://'}
 ORIGIN_HOST=${ORIGIN_HOST='git.tukaani.org'}
-ORIGIN_PATH=${ORIGIN_PATH='xz'}
+ORIGIN_PATH=${ORIGIN_PATH='xz.git'}
 
 . ${INCLUDE}/functions
 

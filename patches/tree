@@ -1,0 +1,34 @@
+diff --git i/Makefile w/Makefile
+index e91f1f6..21f2789 100644
+--- i/Makefile
++++ w/Makefile
+@@ -16,21 +16,23 @@
+ # along with this program; if not, write to the Free Software
+ # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ 
+-prefix = /usr
++VERSION=1.7.0
++prefix = /package/tree/${VERSION}
+ 
+ CC=gcc
++CFLAGS=-Os -pipe -fPIC
++LDFLAGS=-s
+ 
+-VERSION=1.7.0
+ TREE_DEST=tree
+-BINDIR=${prefix}/bin
++BINDIR=${prefix}/command
+ MAN=tree.1
+-MANDIR=${prefix}/man/man1
+-OBJS=tree.o unix.o html.o xml.o json.o hash.o color.o
++MANDIR=${prefix}/doc/man1
++OBJS=tree.o unix.o html.o xml.o json.o hash.o color.o strverscmp.o
+ 
+ # Uncomment options below for your particular OS:
+ 
+ # Linux defaults:
+-CFLAGS=-ggdb -Wall -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
++#CFLAGS=-ggdb -Wall -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+ #CFLAGS=-O4 -Wall  -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+ #LDFLAGS=-s
+ 

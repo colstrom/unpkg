@@ -43,7 +43,7 @@ main() {
     case ${1:-'list'} in
         av|avail) _avail;;
         ls|list) _list;;
-        in|install) _install;;
+        in|install) _install "${@:-}";;
         *) _install "${@:-}";;
     esac
 }

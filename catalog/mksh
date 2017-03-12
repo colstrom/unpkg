@@ -5,6 +5,8 @@ VERSION=${VERSION:-'R54'}
 TAG=${TAG:-mksh-${VERSION}}
 ORIGIN_PATH=${ORIGIN_PATH='MirBSD/mksh'}
 
+CPPFLAGS="-DMKSH_DISABLE_DEPRECATED=1 -DMKSH_DISABLE_EXPERIMENTAL=1 -DMKSH_SMALL_BUT_FAST=1 -DMKSH_S_NOVI=1 -DMKSH_BINSHPOSIX=1 -DMKSH_BINSHREDUCED=1"
+
 . ${INCLUDE}/functions
 
 _build() {
@@ -17,4 +19,5 @@ _install() {
     tar cf - -C ${BUILD} mksh | tar xf - -C ${COMMAND_DIR}
     tar cf - -C ${BUILD} mksh.1 lksh.1 | tar xf - -C ${MANUAL_DIR}/man1
 }
+
 _main ${@:-}

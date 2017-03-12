@@ -16,13 +16,13 @@ _configure() {
         $(_configure_options) \
         --enable-absolute-paths \
         --enable-shared \
-        --with-dynlib=/package/execline/library \
-        --with-dynlib=/package/skalibs/library \
-        --with-include=/package/execline/include \
-        --with-include=/package/skalibs/include \
-        --with-lib=/package/execline/library \
-        --with-lib=/package/skalibs/library \
-        --with-sysdeps=/package/skalibs/sysdeps \
+        --with-dynlib=/package/execline/any/library \
+        --with-dynlib=/package/skalibs/any/library \
+        --with-include=/package/execline/any/include \
+        --with-include=/package/skalibs/any/include \
+        --with-lib=/package/execline/any/library \
+        --with-lib=/package/skalibs/any/library \
+        --with-sysdeps=/package/skalibs/any/sysdeps \
         ${@:-}
 }
 

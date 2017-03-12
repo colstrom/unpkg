@@ -1,0 +1,23 @@
+#!/bin/sh
+
+NAME=${NAME:-'xz-embedded'}
+VERSION=${VERSION:-'master'}
+
+ORIGIN_PREFIX=${ORIGIN_PREFIX='http://'}
+ORIGIN_HOST=${ORIGIN_HOST='git.tukaani.org'}
+ORIGIN_PATH=${ORIGIN_PATH='xz-embedded.git'}
+
+. ${INCLUDE}/functions
+
+BUILD=${SOURCE}/userspace
+
+_install() {
+    cd ${SOURCE} || _abort
+
+    mkdir -p ${COMMAND_DIR} ${INTERNAL_COMMAND_DIR}
+
+    tar cf - -C userspace xzminidec | tar xf - -C ${COMMAND_DIR}
+    tar cf - -C userspace boottest buftest bytetest | tar xf - -C ${INTERNAL_COMMAND_DIR}
+}
+
+_main ${@:-}

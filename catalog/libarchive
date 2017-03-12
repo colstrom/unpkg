@@ -1,0 +1,10 @@
+#!/bin/sh
+
+NAME=${NAME:-'libarchive'}
+VERSION=${VERSION:-'3.3.1'}
+TAG=${TAG:-v${VERSION}}
+ORIGIN_PATH=${ORIGIN_PATH='tar-mirror/libarchive'}
+
+. ${INCLUDE}/functions
+
+_main ${@:-}

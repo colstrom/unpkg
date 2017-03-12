@@ -7,4 +7,8 @@ ORIGIN_PATH=${ORIGIN_PATH='tar-mirror/libarchive'}
 
 . ${INCLUDE}/functions
 
+_supports_autoconf() {
+    false
+}
+
 _main ${@:-}

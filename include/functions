@@ -111,7 +111,7 @@ _configure_options() {
     _configure_help \
         | _awk -f ${INTERNAL_COMMAND}/extract-configure-options.awk \
         | _awk $(env | ${AWK} '$0 !~ /[* "]/ { print "-v " $0 }') -f ${INTERNAL_COMMAND}/configure.awk \
-        | _awk '$1 !~ /=$/'
+        | _awk '$1 !~ /\=$/'
 }
 
 _configure() {

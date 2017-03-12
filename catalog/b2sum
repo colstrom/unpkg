@@ -13,9 +13,9 @@ _build() {
 }
 
 _install() {
-    mkdir -p ${COMMAND_DIR} ${MANUAL_DIR}/man1
+    mkdir -p ${COMMAND_DIR} ${DOC_DIR}/man1
     tar cf - -C b2sum b2sum | tar xf - -C ${COMMAND_DIR}
-    tar cf - -C b2sum b2sum.1 | tar xf - -C ${MANUAL_DIR}/man1
+    tar cf - -C b2sum b2sum.1 | tar xf - -C ${DOC_DIR}/man1
 }
 
 _main ${@:-}

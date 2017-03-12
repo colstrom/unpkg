@@ -10,4 +10,6 @@ ORIGIN_PATH=${ORIGIN_PATH='xz.git'}
 
 . ${INCLUDE}/functions
 
+export ACCEPT_INFERIOR_RM_PROGRAM=yes
+
 _main ${@:-}

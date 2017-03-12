@@ -1,0 +1,12 @@
+#!/bin/sh
+
+NAME=${NAME:-'gsl'}
+VERSION=${VERSION:-'4.1.3'}
+TAG=${TAG:-v${VERSION}}
+ORIGIN_PATH=${ORIGIN_PATH='imatix/gsl'}
+
+. ${INCLUDE}/functions
+
+BUILD=${SOURCE}/src
+
+_main ${@:-}

@@ -23,4 +23,7 @@ then
     # -dead_strip could be used there, but would require more than the naive
     # command detection currently in use.
     export LDFLAGS="${LDFLAGS:--s}"
+
+    # GNU autoconf complains when "rm" does not follow the GNU rm semantics.
+    export ACCEPT_INFERIOR_RM_PROGRAM=yes
 fi

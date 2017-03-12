@@ -1,0 +1,12 @@
+#!/bin/sh
+
+NAME=${NAME:-'tree'}
+VERSION=${VERSION:-'1.7.0'}
+ORIGIN_PATH=${ORIGIN_PATH='tar-mirror/tree'}
+
+. ${INCLUDE}/functions
+
+_build() {
+    _clean && rm -f tree && _patch && _configure && _make
+}
+_main ${@:-}

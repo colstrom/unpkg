@@ -20,7 +20,7 @@ _patch() {
         -e "s#..PREFIX./bin#${COMMAND_DIR}#g" \
         -e "s#..PREFIX./include#${INCLUDE_DIR}#g" \
         -e "s#..PREFIX./lib#${LIBRARY_DIR}#g" \
-        -e "s#..PREFIX./man#${MANUAL_DIR}#g" \
+        -e "s#..PREFIX./man#${DOC_DIR}#g" \
         Makefile > Makefile.fixed || _abort
     mv Makefile.fixed Makefile || _abort
 }

@@ -1,14 +1,12 @@
 diff --git i/userspace/Makefile w/userspace/Makefile
-index 5bd6b28..4bb74df 100644
+index 5bd6b28..801f716 100644
 --- i/userspace/Makefile
 +++ w/userspace/Makefile
-@@ -10,8 +10,8 @@
- CC = gcc -std=gnu89
+@@ -11,7 +11,7 @@ CC = gcc -std=gnu89
  BCJ_CPPFLAGS = -DXZ_DEC_X86 -DXZ_DEC_POWERPC -DXZ_DEC_IA64 \
  		-DXZ_DEC_ARM -DXZ_DEC_ARMTHUMB -DXZ_DEC_SPARC
--CPPFLAGS = -DXZ_USE_CRC64 -DXZ_DEC_ANY_CHECK
+ CPPFLAGS = -DXZ_USE_CRC64 -DXZ_DEC_ANY_CHECK
 -CFLAGS = -ggdb3 -O2 -pedantic -Wall -Wextra
-+CPPFLAGS = -DXZ_DEC_ANY_CHECK
 +CFLAGS = -ggdb3 -Os -fPIC -pipe -pedantic -Wall -Wextra
  RM = rm -f
  VPATH = ../linux/include/linux ../linux/lib/xz

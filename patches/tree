@@ -32,3 +32,16 @@ index e91f1f6..21f2789 100644
  #CFLAGS=-O4 -Wall  -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
  #LDFLAGS=-s
  
+diff --git i/tree.c w/tree.c
+index e7d85d2..61f684b 100644
+--- i/tree.c
++++ w/tree.c
+@@ -1258,7 +1258,7 @@ char Ftype(mode_t mode)
+   else if (m == S_IFIFO) return '|';
+   else if (m == S_IFLNK) return '@'; /* Here, but never actually used though. */
+ #ifdef S_IFDOOR
+-  else if (m == S_ISDOOR) return '>';
++  else if (m == S_IFDOOR) return '>';
+ #endif
+   else if ((m == S_IFREG) && (mode & (S_IXUSR | S_IXGRP | S_IXOTH))) return '*';
+   return 0;

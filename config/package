@@ -81,14 +81,7 @@ INCLUDE_DIR=${INCLUDE_DIR:-${PACKAGE}/include}
 # package can be installed on the same system.
 CONFIG_DIR=${CONFIG_DIR:-${PACKAGE}/config}
 
-# Similarly, all manuals for a given package can be found here.
-MANUAL_DIR=${MANUAL_DIR:-${PACKAGE}/manual}
-
-# And info pages can be found here.
-INFO_DIR=${INFO_DIR:-${MANUAL_DIR}/info}
-
-# All other forms of documentation can be found here. This is a bit of a
-# catch-all for those packages that ship docs in HTML/PS/DVI/PDF/etc formats.
+# Similarly, all documentation for a given package can be found here.
 DOC_DIR=${DOC_DIR:-${PACKAGE}/doc}
 
 # Internal tools for a given package go here. Things that a program might want

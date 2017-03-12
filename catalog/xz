@@ -1,0 +1,13 @@
+#!/bin/sh
+
+NAME=${NAME:-'xz'}
+VERSION=${VERSION:-'5.2.3'}
+TAG=${TAG:-v${VERSION}}
+
+ORIGIN_PREFIX=${ORIGIN_PREFIX='http://'}
+ORIGIN_HOST=${ORIGIN_HOST='git.tukaani.org'}
+ORIGIN_PATH=${ORIGIN_PATH='xz'}
+
+. ${INCLUDE}/functions
+
+_main ${@:-}

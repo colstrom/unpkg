@@ -16,10 +16,10 @@ _configure() {
         $(_configure_options) \
         --enable-absolute-paths \
         --enable-shared \
-        --with-dynlib=/package/skalibs/library \
-	      --with-include=/package/skalibs/include \
-        --with-lib=/package/skalibs/library \
-        --with-sysdeps=/package/skalibs/sysdeps \
+        --with-dynlib=/package/skalibs/any/library \
+	      --with-include=/package/skalibs/any/include \
+        --with-lib=/package/skalibs/any/library \
+        --with-sysdeps=/package/skalibs/any/sysdeps \
         ${@:-}
 }
 

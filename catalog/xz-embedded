@@ -11,6 +11,8 @@ ORIGIN_PATH=${ORIGIN_PATH='xz-embedded.git'}
 
 BUILD=${SOURCE}/userspace
 
+LDFLAGS=''
+
 _install() {
     cd ${SOURCE} || _abort
 

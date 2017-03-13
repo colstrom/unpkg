@@ -1,0 +1,20 @@
+#!/bin/sh
+
+NAME=${NAME:-'apr-iconv'}
+VERSION=${VERSION:-'1.2.1'}
+ORIGIN_PATH=${ORIGIN_PATH='tar-mirror/apr-iconv'}
+
+. ${INCLUDE}/functions
+
+_configure() {
+    cd ${BUILD} || _abort
+
+    ./configure \
+        $(_configure_options) \
+        --prefix=${PREFIX} \
+        --exec-prefix=${EPREFIX} \
+        --with-apr=/package/apr/any/command/apr-1-config \
+        ${@:-}
+}
+
+_main ${@:-}

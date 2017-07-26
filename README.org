@@ -134,7 +134,7 @@
 *** /package
 
    1. =/package= is a world-readable directory to hold packages.
-   2. Version =V= of package =P= is installed at =/package/P/V=.
+   2. Version =V= of package =P= is installed at =/package/.P/V=.
       1. If =P= provides any commands, they are installed at
          =/package/P/V/command=.
       2. If =P= provides any libraries, they are installed under
@@ -146,17 +146,16 @@
       5. If =P= has any internal commands that are not indented for consumption
          by users or external scripts, they are installed under
          =/package/P/V/.command=.
-   3. =/package/P/any= is a symlink to the preferred version of =P= on the
-      system.
+   3. =/package/P= is a symlink to the preferred version of =P= on the system.
    4. Given only version =X.Y.Z= of package =P=...
-      1. =/package/P/X.any= is a symbolic link to =X.Y.Z=
-      2. =/package/P/X.Y.any= is a symbolic link to =X.Y.Z=
+      1. =/package/.P/X.any= is a symbolic link to =X.Y.Z=
+      2. =/package/.P/X.Y.any= is a symbolic link to =X.Y.Z=
 
 *** /command and $HOME/command
 
     1. =/command= is a world-readable directory containing symbolic links to
        all installed commands.
-    2. =/package/*/any/command/*= should be symlinked into =/command=.
+    2. =/package/*/command/*= should be symlinked into =/command=.
     3. The default =$PATH= is a single entry: =/command=.
        1. Individual programs may choose to extend this. For instance,
           interactive shells may prepend =$HOME/command= to =$PATH=, allowing
